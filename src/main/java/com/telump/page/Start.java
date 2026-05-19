@@ -17,7 +17,7 @@ public class Start {
                 AppController.currentState = State.Login;
                 break;
             case 2:
-                AppController.currentState = State.Register;
+                AppController.currentState = State.RegisterAccount;
                 break;
             case 0:
                 AppController.currentState = State.Exit;

@@ -2,6 +2,9 @@ package com.telump;
 
 import com.telump.common.Util;
 import com.telump.page.*;
+import com.telump.page.auth.Login;
+import com.telump.page.auth.RegisterAccount;
+import com.telump.page.dashboard.Dashboard;
 import com.telump.user.User;
 import com.telump.common.State;
 
@@ -28,13 +31,13 @@ public class AppController {
                     }
                     Login.login();
                     break;
-                case State.Register:
+                case State.RegisterAccount:
                     if (!Util.confirmation("Continue to Registration? (y/n): ")) {
                         AppController.currentState = State.Start;
                         errorMessage = "Welcome to Tel-U Marketplace!";
                         break;
                     }
-                    errorMessage = Register.register();
+                    errorMessage = RegisterAccount.register();
                     break;
                 case State.Dashboard:
                     Dashboard.dashboard();

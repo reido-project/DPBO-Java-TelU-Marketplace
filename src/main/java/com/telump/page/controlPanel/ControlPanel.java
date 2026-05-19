@@ -1,4 +1,4 @@
-package com.telump.page;
+package com.telump.page.controlPanel;
 
 public class ControlPanel {
     /*

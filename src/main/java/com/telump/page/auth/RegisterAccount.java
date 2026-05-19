@@ -1,6 +1,6 @@
-package com.telump.page;
+package com.telump.page.auth;
 
-public class Register {
+public class RegisterAccount {
     public static String register(){
         return "";
     }
