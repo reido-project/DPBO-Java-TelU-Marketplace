@@ -5,10 +5,14 @@ import com.telump.item.Ad;
 
 public class Main {
     public static void main(String[] args) {
-        AppController.appController();
+        init();
+
+        AppController appController = new AppController();
+
+        appController.appController();
     }
 
     public static void init(){ // Ini method buat testing
-        AdTable.create(new Ad("Example001", "Tel-U Marketplace!", "Tel-U Marketplace, Platform JB Terbaik Untuk Mahasiswa Telkom University!", "", "Reido"));
+        AdTable.create(0, new Ad("Example001", "Tel-U Marketplace!", "Tel-U Marketplace, Platform JB Terbaik Untuk Mahasiswa Telkom University!", "", "Reido"));
     }
 }

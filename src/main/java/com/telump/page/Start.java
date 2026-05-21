@@ -1,27 +1,35 @@
 package com.telump.page;
 
-import com.telump.AppController;
 import com.telump.common.Util;
 import com.telump.common.State;
 
 public class Start {
-    public static void start(){
-        AppController.errorMessage = "Welcome to Tel-U Marketplace!";
+    public AppInfo start(){
+        String errorMessage = null;
+        State appState = State.Start;
+
         System.out.print("""
                 1. Login
                 2. Register
                 0. Exit
                 """);
-        switch(Util.integerInput("Pilih opsi: ")) {
-            case 1:
-                AppController.currentState = State.Login;
-                break;
-            case 2:
-                AppController.currentState = State.RegisterAccount;
-                break;
-            case 0:
-                AppController.currentState = State.Exit;
-        }
+        appState = switch (Util.integerInput("Pilih opsi: ")) {
+            case 1 -> {
+                errorMessage = "Please Enter Username and Password.";
+                yield State.Login;
+            }
+            case 2 -> {
+                errorMessage = "Please Enter Account Info.";
+                yield State.RegisterAccount;
+            }
+            case 0 -> {
+                errorMessage = "Bye~";
+                yield State.Exit;
+            }
+            default -> appState;
+        };
+
+        return new AppInfo(errorMessage, appState);
     }
 }
 

@@ -20,6 +20,17 @@ public class AdTable implements IDatabase{
         return "Ad registered successfully!";
     }
 
+    public static String create(int index, Ad ad){
+        for(Ad a : adTable){
+            if(a.getId().equals(ad.getId())){
+                return "Error: Ad with duplicated id found.";
+            }
+        }
+
+        adTable.set(index, ad);
+        return "Ad registered successfully!";
+    }
+
     public static List<Ad> getAdListById(String id){
         List<Ad> ads = new ArrayList<>();
 

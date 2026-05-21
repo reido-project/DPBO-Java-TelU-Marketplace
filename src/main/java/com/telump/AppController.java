@@ -3,44 +3,63 @@ package com.telump;
 import com.telump.common.Util;
 import com.telump.page.*;
 import com.telump.page.auth.Login;
+import com.telump.page.auth.LoginInfo;
 import com.telump.page.auth.RegisterAccount;
 import com.telump.page.dashboard.Dashboard;
 import com.telump.user.User;
 import com.telump.common.State;
 
 public class AppController {
-    public static State currentState = State.Start;
+    public State appState;
+    public User session = null;
+    public String errorMessage;
 
-    public static User currentSession = null;
+    public void appController() {
+        String welcome = "Welcome to Tel-U Marketplace!";
 
-    public static String errorMessage = "Welcome to Tel-U Marketplace!";
+        Start startPage = new Start();
+        Login loginPage = new Login();
+        RegisterAccount registerAccountPage = new RegisterAccount();
+        Dashboard dashboardPage = new Dashboard();
 
-    public static void appController() {
+        AppInfo rf = null;
+
         while (true) {
-            System.out.println();
-            System.out.println(errorMessage);
-            switch (currentState) {
+            if(rf == null){
+                rf = new AppInfo(welcome, State.Start);
+            }
+            else if(rf.getErrorMessage().isEmpty() || rf.getErrorMessage() == null){
+                rf.setErrorMessage(welcome);
+            }
+
+            appState = rf.getAppState();
+            errorMessage = rf.getErrorMessage();
+            if(rf instanceof LoginInfo){
+                session = ((LoginInfo) rf).getUser();
+            }
+
+            System.out.println("\n" + errorMessage);
+
+            switch (appState) {
                 case State.Start:
-                    Start.start();
+                    rf = startPage.start();
                     break;
                 case State.Login:
                     if (!Util.confirmation("Continue to Login? (y/n): ")) {
-                        AppController.currentState = State.Start;
-                        errorMessage = "Welcome to Tel-U Marketplace!";
+                        appState = State.Start;
                         break;
                     }
-                    Login.login();
+                    rf = loginPage.login();
                     break;
                 case State.RegisterAccount:
                     if (!Util.confirmation("Continue to Registration? (y/n): ")) {
-                        AppController.currentState = State.Start;
-                        errorMessage = "Welcome to Tel-U Marketplace!";
+                        appState = State.Start;
                         break;
                     }
-                    errorMessage = RegisterAccount.register();
+                    rf = registerAccountPage.register();
                     break;
                 case State.Dashboard:
-                    Dashboard.dashboard();
+                    rf = dashboardPage.dashboard();
                     break;
                 default:
                     return;
