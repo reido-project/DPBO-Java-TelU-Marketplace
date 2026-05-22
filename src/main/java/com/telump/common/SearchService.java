@@ -1,6 +1,6 @@
 package com.telump.common;
 
-import com.telump.item.CatalogItem;
+import com.telump.catalog.CatalogItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.telump.page.dashboard;
 
 import com.telump.common.State;
 import com.telump.common.Util;
-import com.telump.item.CatalogItem;
+import com.telump.catalog.CatalogItem;
 import com.telump.page.AppInfo;
 
 import java.util.List;

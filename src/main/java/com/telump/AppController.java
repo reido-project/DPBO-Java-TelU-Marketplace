@@ -28,7 +28,7 @@ public class AppController {
             if(rf == null){
                 rf = new AppInfo(welcome, State.Start);
             }
-            else if(rf.getErrorMessage().isEmpty() || rf.getErrorMessage() == null){
+            else if(rf.getErrorMessage() == null || rf.getErrorMessage().isEmpty()){
                 rf.setErrorMessage(welcome);
             }
 

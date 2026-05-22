@@ -1,16 +1,14 @@
-package com.telump.item;
+package com.telump.catalog;
 
 public abstract class CatalogItem {
     private final String id;
     private String title;
     private String description;
-    private final String username;
 
-    protected CatalogItem(String id, String title, String description, String username) {
+    public CatalogItem(String id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.username = username;
     }
 
     public String getId() {
@@ -31,9 +29,5 @@ public abstract class CatalogItem {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getUsername() {
-        return username;
     }
 }

@@ -1,6 +1,6 @@
 package com.telump.database;
 
-import com.telump.item.Ad;
+import com.telump.catalog.Ad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class AdTable implements IDatabase{
             }
         }
 
-        adTable.set(index, ad);
+        adTable.add(index, ad);
         return "Ad registered successfully!";
     }
 
@@ -56,7 +56,7 @@ public class AdTable implements IDatabase{
         List<Ad> ads = new ArrayList<>();
 
         for(Ad ad : adTable){
-            if(ad.getUsername().equals(username)){
+            if(ad.getRegistrant().equals(username)){
                 ads.add(ad);
             }
         }

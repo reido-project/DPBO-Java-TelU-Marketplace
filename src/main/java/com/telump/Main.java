@@ -1,7 +1,7 @@
 package com.telump;
 
 import com.telump.database.AdTable;
-import com.telump.item.Ad;
+import com.telump.catalog.Ad;
 
 public class Main {
     public static void main(String[] args) {
