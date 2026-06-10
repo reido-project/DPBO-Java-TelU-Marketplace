@@ -36,6 +36,9 @@ public class AppController {
             errorMessage = rf.getErrorMessage();
             if(rf instanceof LoginInfo){
                 session = ((LoginInfo) rf).getUser();
+            } else {
+                // Sinkronkan session dengan AuthenticationService (misal setelah logout)
+                session = com.telump.common.AuthenticationService.getCurrentUser();
             }
 
             System.out.println("\n" + errorMessage);

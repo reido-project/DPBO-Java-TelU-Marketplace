@@ -31,7 +31,9 @@ public class Dashboard {
                 case 3:
                     break;
                 case 9:
-                    return null;
+                    // Logout user dan hapus sesi
+                    com.telump.common.AuthenticationService.logout();
+                    return new AppInfo("Logout berhasil!", State.Start);
                 case 0:
                     return new AppInfo(null, State.Exit);
             }
