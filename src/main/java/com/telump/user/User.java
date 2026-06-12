@@ -1,7 +1,8 @@
 package com.telump.user;
 
-import com.telump.common.Authenticatable;
 import java.util.List;
+
+import com.telump.common.Authenticatable;
 
 public abstract class User implements Authenticatable {
     private String username;           
@@ -81,6 +82,32 @@ public abstract class User implements Authenticatable {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+    /**
+     * Pengecekan apakah user memiliki role tertentu
+     * @param role role yang dicek
+     * @return true jika user memiliki role tersebut
+     */
+    public boolean hasRole(UserRole role) {
+        return this.role == role;
+    }
+
+    /**
+     * Pengecekan apakah user adalah ADMIN
+     * @return true jika user adalah admin
+     */
+    public boolean isAdmin() {
+        return this.role == UserRole.ADMIN;
+    }
+
+    /**
+     * Pengecekan apakah user adalah USER biasa
+     * @return true jika user adalah user biasa
+     */
+    public boolean isRegularUser() {
+        return this.role == UserRole.USER;
+    }
+
     @Override
     public String toString() {
         return "User{" +

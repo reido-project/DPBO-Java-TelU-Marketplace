@@ -4,10 +4,8 @@ import com.telump.database.UserTable;
 import com.telump.user.RegularUser;
 import com.telump.user.User;
 
-/**
- * Service untuk mengelola autentikasi user (register, login, logout)
- * Menyimpan sesi user yang sedang login via currentUser
- */
+// Service untuk autentikasi user (register, login, logout)
+// Menyimpan sesi user yang sedang login dengan currentUser
 public class AuthenticationService {
 
     // Sesi user yang sedang login saat ini

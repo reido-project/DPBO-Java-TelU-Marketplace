@@ -34,4 +34,14 @@ public class Util {
             }
         }
     }
+
+    /**
+     * Input password dari user (untuk update profile)
+     * @param message pesan yang ditampilkan
+     * @return string yang diinput user
+     */
+    public static String passwordInput(String message){
+        System.out.print(message);
+        return input.nextLine();
+    }
 }

@@ -1,11 +1,11 @@
 package com.telump.page.dashboard;
 
+import java.util.List;
+
+import com.telump.catalog.CatalogItem;
 import com.telump.common.State;
 import com.telump.common.Util;
-import com.telump.catalog.CatalogItem;
 import com.telump.page.AppInfo;
-
-import java.util.List;
 
 public class Dashboard {
     public AppInfo dashboard(){
@@ -16,7 +16,8 @@ public class Dashboard {
             System.out.println("""
                 1. See Catalog
                 2. Search Item or User
-                3. Profile
+                3. View Profile
+                4. Edit Profile
                 9. Logout
                 0. Exit
                 """);
@@ -29,6 +30,10 @@ public class Dashboard {
                     // openCatalog(SearchService.globalSearch(query));
                     break;
                 case 3:
+                    com.telump.page.profile.Profile.showProfile();
+                    break;
+                case 4:
+                    com.telump.page.profile.UpdateProfile.showUpdateProfileMenu();
                     break;
                 case 9:
                     // Logout user dan hapus sesi

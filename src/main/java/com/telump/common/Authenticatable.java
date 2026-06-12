@@ -1,14 +1,13 @@
 package com.telump.common;
 
-/**
- * Interface untuk autentikasi user (login/logout)
- * Diimplementasikan oleh User dan subclassnya
- */
+
+
+    // dimplementasikan user dan subclassnya
+ 
 public interface Authenticatable {
+    // login
     boolean login(String username, String password);
 
-    /**
-     * Logout user
-     */
+    //  Logout user
     void logout();
 }
