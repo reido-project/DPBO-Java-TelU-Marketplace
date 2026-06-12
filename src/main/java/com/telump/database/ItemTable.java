@@ -1,6 +1,7 @@
 package com.telump.database;
 
 import com.telump.catalog.Item;
+import com.telump.category.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,5 +74,17 @@ public class ItemTable implements IDatabase{
 
         itemTable.remove(targetItemIndex);
         return "Item deleted successfully!";
+    }
+    public static List<Item> searchByCategory(String categoryName) {
+        List<Item> items = new ArrayList<>();
+
+        for (Item item : itemTable) {
+            if (item.getCategory() != null &&
+                item.getCategory().getName().equalsIgnoreCase(categoryName)) {
+
+                items.add(item);
+            }
+        }
+        return items;
     }
 }
