@@ -4,6 +4,7 @@ import com.telump.catalog.Item;
 import com.telump.category.Category;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemTable implements IDatabase{
@@ -54,6 +55,24 @@ public class ItemTable implements IDatabase{
         return items;
     }
 
+    public static List<Item> getItemsByTitle(String query) {
+        List<Item> results = new ArrayList<>();
+
+        if (query == null || query.trim().isEmpty()) {
+            return null;
+        }
+
+        String lowerCaseQuery = query.toLowerCase();
+
+        for (Item item : itemTable) {
+            if (item.getTitle() != null && item.getTitle().toLowerCase().contains(lowerCaseQuery)) {
+                results.add(item);
+            }
+        }
+
+        return results;
+    }
+
     public static String update(Item item) {
         int targetItemIndex = getItemIndexById(item.getId());
 
@@ -75,7 +94,7 @@ public class ItemTable implements IDatabase{
         itemTable.remove(targetItemIndex);
         return "Item deleted successfully!";
     }
-    public static List<Item> searchByCategory(String categoryName) {
+    public static List<Item> getItemsByCategory(String categoryName) {
         List<Item> items = new ArrayList<>();
 
         for (Item item : itemTable) {
@@ -85,6 +104,19 @@ public class ItemTable implements IDatabase{
                 items.add(item);
             }
         }
+
+        if(items.isEmpty()){
+            return null;
+        }
+
         return items;
+    }
+
+    public static List<Item> getRandomItems() {
+        List<Item> randomizedList = new ArrayList<>(itemTable);
+        
+        Collections.shuffle(randomizedList);
+        
+        return randomizedList;
     }
 }

@@ -1,4 +1,4 @@
-package com.telump.page.catalog;
+package com.telump.page.catalog.layout;
 
 import java.awt.*;
 

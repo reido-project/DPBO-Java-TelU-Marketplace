@@ -1,6 +1,6 @@
 package com.telump.catalog;
 
-public abstract class CatalogItem {
+public class CatalogItem {
     private final String id;
     private String title;
     private String description;

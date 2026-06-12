@@ -14,8 +14,8 @@ public class Item extends CatalogItem {
         this.imageName = imageName;
         this.category = category;
     }
-    public int getPrice() {
-        return price;
+    public String getFormattedPrice() {
+        return "Rp" + price;
     }
 
     public void setPrice(int price) {

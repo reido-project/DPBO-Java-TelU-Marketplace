@@ -6,6 +6,12 @@ import com.telump.catalog.CatalogItem;
 import com.telump.common.State;
 import com.telump.common.Util;
 import com.telump.page.AppInfo;
+import com.telump.page.profile.Profile;
+import com.telump.page.profile.UpdateProfile;
+import com.telump.common.AuthenticationService;
+import com.telump.page.catalog.*;
+import com.telump.catalog.*;
+import com.telump.common.SearchService;
 
 public class Dashboard {
     public AppInfo dashboard(){
@@ -23,21 +29,21 @@ public class Dashboard {
                 """);
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
-                    // openCatalog(SearchService.getRandomItems());
+                    openCatalog(SearchService.getRandomItems());
                     break;
                 case 2:
                     String query = Util.stringInput("Cari: ");
-                    // openCatalog(SearchService.globalSearch(query));
+                    openCatalog(SearchService.globalSearch(query));
                     break;
                 case 3:
-                    com.telump.page.profile.Profile.showProfile();
+                    Profile.showProfile();
                     break;
                 case 4:
-                    com.telump.page.profile.UpdateProfile.showUpdateProfileMenu();
+                    UpdateProfile.showUpdateProfileMenu();
                     break;
                 case 9:
                     // Logout user dan hapus sesi
-                    com.telump.common.AuthenticationService.logout();
+                    AuthenticationService.logout();
                     return new AppInfo("Logout berhasil!", State.Start);
                 case 0:
                     return new AppInfo(null, State.Exit);
@@ -46,10 +52,17 @@ public class Dashboard {
     }
 
     private CatalogItem openCatalog(List<CatalogItem> items){
-        CatalogItem selectedItem = null;
-        // Catalog window = new Catalog(items);
-        // window.setVisible(true);
+        Catalog window = new Catalog(items);
+        window.setVisible(true);
 
-        return selectedItem;
+        while (window.isDisplayable()) {
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+        return window.getSelectedItem();
     }
 }
