@@ -16,6 +16,16 @@ public class Item extends CatalogItem {
         this.imageName = imageName;
         this.category = category;
     }
+
+    //Constructor buat testing
+    public Item(String id, String title, String description, int price, User seller,String imageName, Category category) {
+        super(id, title, description);
+        this.price = price;
+        this.seller = seller;
+        this.imageName = imageName;
+        this.category = category;
+    }
+
     public String getFormattedPrice() {
         return "Rp" + price;
     }

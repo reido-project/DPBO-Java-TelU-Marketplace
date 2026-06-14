@@ -72,7 +72,7 @@ public class AdTable implements IDatabase{
             return adTable.get(1);
         }
         else if(adTable.isEmpty()){
-            return new Ad("Example001", "Tel-U Marketplace!", "Tel-U Marketplace, Platform JB Terbaik Untuk Mahasiswa Telkom University!", "", "Reido");
+            return new Ad("Example001", "Tel-U Marketplace!", "Tel-U Marketplace, Platform JB Terbaik Untuk Mahasiswa Telkom University!", "", UserTable.findByUsername("user"));
         }
 
         Random rand = new Random();

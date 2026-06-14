@@ -20,7 +20,7 @@ public class Catalog extends JFrame {
     }
 
     public Catalog(List<CatalogItem> items){
-        super("Tel-U-Marketplace");
+        super("Tel-U Marketplace");
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1350, 800);
@@ -37,7 +37,7 @@ public class Catalog extends JFrame {
         banner.setPreferredSize(new Dimension(100, 60));
 
         // Ini Isian Banner
-        JLabel title = new JLabel("Tel-U-Marketplace");
+        JLabel title = new JLabel("Tel-U Marketplace");
         title.setForeground(Color.WHITE);
         title.setFont(new Font("SansSerif", Font.BOLD, 20));
         banner.add(title);
@@ -88,14 +88,12 @@ public class Catalog extends JFrame {
 
         try{
             String imagePath = "com/telump/asset/noImage.png";
-            if(item instanceof Item){
-                imagePath = String.format("com/telump/asset/listing/%s.png", item.getId());
-
+            if (item instanceof Ad) {
+                imagePath = "com/telump/asset/ad/" + item.getId() + ".png";
+            } else {
+                imagePath = "com/telump/asset/listing/" + item.getId() + ".png";
             }
-            else if(item instanceof Ad){
-                imagePath = String.format("com/telump/asset/listing/%s.png", item.getId());
-            }
-            URL imgUrl = getClass().getResource(imagePath);
+            URL imgUrl = ClassLoader.getSystemResource(imagePath);
 
             if(imgUrl != null){
                 ImageIcon icon = new ImageIcon(imgUrl);
@@ -126,14 +124,8 @@ public class Catalog extends JFrame {
         title.setForeground(Color.WHITE);
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel price = new JLabel("Price");
-        if(item instanceof Item){
-            Item _item = (Item) item;
-            price = new JLabel(_item.getFormattedPrice());
-        }
-        else if(item instanceof Ad){
-            price = new JLabel(item.getDescription());
-        }
+        JLabel price = new JLabel(item.getDescription());
+        
         price.setForeground(Color.GREEN);
         price.setHorizontalAlignment(SwingConstants.CENTER);
 

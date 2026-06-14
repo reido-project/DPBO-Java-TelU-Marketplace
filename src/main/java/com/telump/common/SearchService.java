@@ -16,7 +16,7 @@ public class SearchService {
         }
         
         if(query.startsWith("@")){
-            items.addAll(searchUser(query));
+            items.addAll(searchUser(query.substring(1)));
         }
         else{
             items.addAll(searchByTag(query));
@@ -50,7 +50,7 @@ public class SearchService {
         List<CatalogItem> catalogItems = new ArrayList<>();
 
         if(users == null || users.isEmpty()){
-            return null;
+            return catalogItems;
         }
         
         for(User u : users){
@@ -64,7 +64,7 @@ public class SearchService {
         List<CatalogItem> catalogItems = new ArrayList<>();
 
         if(items == null || items.isEmpty()){
-            return null;
+            return catalogItems;
         }
 
         for(Item i : items){

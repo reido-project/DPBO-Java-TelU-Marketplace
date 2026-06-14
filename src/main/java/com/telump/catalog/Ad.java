@@ -1,10 +1,11 @@
 package com.telump.catalog;
+import com.telump.user.*;
 
 public class Ad extends CatalogItem {
     private String targetUrl;
-    private final String registrant;
+    private final User registrant;
 
-    public Ad(String id, String title, String description, String targetUrl, String registrant) {
+    public Ad(String id, String title, String description, String targetUrl, User registrant) {
         super(id, title, description);
         this.targetUrl = targetUrl;
         this.registrant = registrant;
@@ -18,7 +19,7 @@ public class Ad extends CatalogItem {
         this.targetUrl = targetUrl;
     }
 
-    public String getRegistrant() {
+    public User getRegistrant() {
         return registrant;
     }
 }
