@@ -68,4 +68,15 @@ public class CategoryTable implements IDatabase {
 
         return "Error: Category not found.";
     }
+    public static Category getCategoryByName(String name) {
+
+    for (Category category : categoryTable) {
+
+        if (category.getName().equalsIgnoreCase(name)) {
+            return category;
+        }
+    }
+
+    return null;
+}
 }

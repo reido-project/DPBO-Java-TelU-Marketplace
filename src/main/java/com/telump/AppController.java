@@ -13,7 +13,7 @@ import com.telump.user.User;
 
 public class AppController {
     public State appState;
-    public User session = null;
+    public static User session = null;
     public String errorMessage; 
 
     public void appController() {
@@ -79,5 +79,8 @@ public class AppController {
                     return;
             }
         }
+    }
+    public static User getSession(){
+        return session;
     }
 }

@@ -41,4 +41,4 @@ public class RegisterAccount {
 
         return new AppInfo(errorMessage, appState);
     }
-}
+}

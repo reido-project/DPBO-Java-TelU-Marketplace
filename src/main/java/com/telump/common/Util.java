@@ -22,6 +22,16 @@ public class Util {
         System.out.print(message);
         return input.nextLine();
     }
+    public static String imageInput(String ImageName){
+        System.out.print(ImageName);
+        String inputUser = input.nextLine().trim();
+    
+        if (!inputUser.toLowerCase().endsWith(".png")) {
+            inputUser += ".png";
+        }
+        
+        return inputUser;
+    }
 
     public static boolean confirmation(String message){
         while(true){

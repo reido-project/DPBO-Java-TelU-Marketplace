@@ -1,14 +1,16 @@
 package com.telump.catalog;
 import com.telump.category.Category;
+import com.telump.user.User;
+import com.github.f4b6a3.uuid.UuidCreator;
 
 public class Item extends CatalogItem {
     private int price;
-    private final String seller;
+    private final User seller;
     private String imageName;
     private Category category;
 
-    public Item(String id, String title, String description, int price, String seller,String imageName, Category category) {
-        super(id, title, description);
+    public Item(String title, String description, int price, User seller,String imageName, Category category) {
+        super(UuidCreator.getTimeOrderedEpoch().toString(), title, description);
         this.price = price;
         this.seller = seller;
         this.imageName = imageName;
@@ -21,13 +23,12 @@ public class Item extends CatalogItem {
     public void setPrice(int price) {
         this.price = price;
     }
-    public String getSeller() {
+    public User getSeller() {
             return seller;
     }
      public String getImageName() {
         return imageName;
     }
-
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
