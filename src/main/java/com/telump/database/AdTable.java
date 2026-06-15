@@ -20,6 +20,7 @@ public class AdTable implements IDatabase{
         return "Ad registered successfully!";
     }
 
+    // Method buat testing
     public static String create(int index, Ad ad){
         for(Ad a : adTable){
             if(a.getId().equals(ad.getId())){
@@ -29,6 +30,16 @@ public class AdTable implements IDatabase{
 
         adTable.add(index, ad);
         return "Ad registered successfully!";
+    }
+
+    public static Ad getAdById(String id){
+        for(Ad ad : adTable){
+            if(ad.getId().equals(id)){
+                return ad;
+            }
+        }
+
+        return null;
     }
 
     public static List<Ad> getAdListById(String id){
@@ -56,12 +67,16 @@ public class AdTable implements IDatabase{
         List<Ad> ads = new ArrayList<>();
 
         for(Ad ad : adTable){
-            if(ad.getRegistrant().equals(username)){
+            if(ad.getRegistrant().getUsername().equals(username)){
                 ads.add(ad);
             }
         }
 
         return ads;
+    }
+
+    public static Ad getDefaultAd(){
+        return adTable.getFirst();
     }
 
     public static Ad getRandomAd(){
@@ -70,9 +85,6 @@ public class AdTable implements IDatabase{
         }
         else if(adTable.size() == 2){
             return adTable.get(1);
-        }
-        else if(adTable.isEmpty()){
-            return new Ad("Example001", "Tel-U Marketplace!", "Tel-U Marketplace, Platform JB Terbaik Untuk Mahasiswa Telkom University!", "", UserTable.findByUsername("user"));
         }
 
         Random rand = new Random();

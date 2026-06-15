@@ -11,7 +11,9 @@ public abstract class User implements Authenticatable {
     private String kontak;             
     private String bio;               
     private UserStatus status;       
-    private UserRole role;            
+    private UserRole role;
+
+    private final String imagePath = "com/telump/asset/user.png";
 
 
     public User(String username, String password, String profilname, String kontak, String bio, UserRole role) {
@@ -118,5 +120,9 @@ public abstract class User implements Authenticatable {
                 ", status=" + status +
                 ", role=" + role +
                 '}';
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 }

@@ -2,7 +2,6 @@ package com.telump.page.catalog;
 
 import com.telump.catalog.Ad;
 import com.telump.catalog.CatalogItem;
-import com.telump.catalog.Item;
 import com.telump.page.catalog.layout.WrapLayout;
 
 import javax.swing.*;
@@ -88,11 +87,11 @@ public class Catalog extends JFrame {
 
         try{
             String imagePath = "com/telump/asset/noImage.png";
-            if (item instanceof Ad) {
-                imagePath = "com/telump/asset/ad/" + item.getId() + ".png";
-            } else {
-                imagePath = "com/telump/asset/listing/" + item.getId() + ".png";
+
+            if (item.getImagePath() != null && !item.getImagePath().trim().isBlank()) {
+                imagePath = item.getImagePath();
             }
+            
             URL imgUrl = ClassLoader.getSystemResource(imagePath);
 
             if(imgUrl != null){

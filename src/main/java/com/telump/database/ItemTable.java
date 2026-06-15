@@ -1,7 +1,6 @@
 package com.telump.database;
 
 import com.telump.catalog.Item;
-import com.telump.category.Category;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +52,15 @@ public class ItemTable implements IDatabase{
             }
         }
         return items;
+    }
+
+    public static Item getItemById(String id){
+        for(Item item : itemTable){
+            if(item.getId().equals(id)){
+                return item;
+            }
+        }
+        return null;
     }
 
     public static List<Item> getItemsByTitle(String query) {

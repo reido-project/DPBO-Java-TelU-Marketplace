@@ -26,6 +26,24 @@ public class UserTable implements IDatabase {
         return null;
     }
 
+    public static List<User> getUsersByTitle(String query) {
+        List<User> results = new ArrayList<>();
+
+        if (query == null || query.trim().isEmpty()) {
+            return null;
+        }
+
+        String lowerCaseQuery = query.toLowerCase();
+
+        for (User user : userTable) {
+            if (user.getUsername() != null && user.getUsername().toLowerCase().contains(lowerCaseQuery)) {
+                results.add(user);
+            }
+        }
+
+        return results;
+    }
+
     /**
      * Simpan user baru ke database
      * @param user user yang akan disimpan

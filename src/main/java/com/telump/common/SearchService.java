@@ -10,19 +10,20 @@ import java.util.List;
 public class SearchService {
     public static List<CatalogItem> globalSearch(String query){
         List<CatalogItem> items = new ArrayList<>();
+        String trimmedQuery = query.trim();
 
-        if(query == null || query.trim().isBlank()){
+        if(trimmedQuery == null || trimmedQuery.isBlank()){
             return getRandomItems();
         }
         
-        if(query.startsWith("@")){
-            items.addAll(searchUser(query.substring(1)));
+        if(trimmedQuery.startsWith("@")){
+            items.addAll(searchUser(trimmedQuery.substring(1)));
         }
         else{
-            items.addAll(searchByTag(query));
+            items.addAll(searchByTag(trimmedQuery));
 
             if(items.isEmpty()){
-                items.addAll(searchByTitle(query));
+                items.addAll(searchByTitle(trimmedQuery));
             }
         }
 
@@ -34,33 +35,22 @@ public class SearchService {
     }
 
     public static List<CatalogItem> getRandomItems(){
-        return injectAds(catalogConvert(ItemTable.getRandomItems()));
+        return injectAds(ItemCatalogConvert(ItemTable.getRandomItems()));
     }
 
     private static List<CatalogItem> searchByTag(String query){
-        return catalogConvert(ItemTable.getItemsByCategory(query));
+        return ItemCatalogConvert(ItemTable.getItemsByCategory(query));
     }
 
     private static List<CatalogItem> searchByTitle(String query){
-        return catalogConvert(ItemTable.getItemsByTitle(query));
+        return ItemCatalogConvert(ItemTable.getItemsByTitle(query));
     }
 
     private static List<CatalogItem> searchUser(String query){
-        List<User> users = new ArrayList<>();
-        List<CatalogItem> catalogItems = new ArrayList<>();
-
-        if(users == null || users.isEmpty()){
-            return catalogItems;
-        }
-        
-        for(User u : users){
-            catalogItems.add(new CatalogItem(u.getUsername(), u.getProfilname(), u.getBio()));
-        }
-
-        return catalogItems;
+        return UserCatalogConvert(UserTable.getUsersByTitle(query));
     }
 
-    private static List<CatalogItem> catalogConvert(List<Item> items){
+    private static List<CatalogItem> ItemCatalogConvert(List<Item> items){
         List<CatalogItem> catalogItems = new ArrayList<>();
 
         if(items == null || items.isEmpty()){
@@ -68,7 +58,30 @@ public class SearchService {
         }
 
         for(Item i : items){
-            catalogItems.add(new CatalogItem(i.getId(), i.getTitle(), i.getFormattedPrice()));
+            catalogItems.add(new CatalogItem(i.getId(), i.getTitle(), i.getFormattedPrice(), ItemType.Item, i.getImagePath()));
+        }
+
+        return catalogItems;
+    }
+
+    private static CatalogItem AdCatalogConvert(Ad ad){
+        if(ad == null){
+            Ad nullAd = AdTable.getDefaultAd();
+            return new CatalogItem(nullAd.getId(), nullAd.getTitle(), nullAd.getDescription(), ItemType.Ad, nullAd.getImagePath());
+        }
+
+        return new CatalogItem(ad.getId(), ad.getTitle(), ad.getDescription(), ItemType.Ad, ad.getImagePath());
+    }
+
+    private static List<CatalogItem> UserCatalogConvert(List<User> users){
+        List<CatalogItem> catalogItems = new ArrayList<>();
+
+        if(users == null || users.isEmpty()){
+            return catalogItems;
+        }
+
+        for(User u : users){
+            catalogItems.add(new CatalogItem(u.getUsername(), u.getProfilname(), u.getBio(), ItemType.User, u.getImagePath()));
         }
 
         return catalogItems;
@@ -85,7 +98,7 @@ public class SearchService {
             finalItems.add(items.get(i));
             
             if ((i + 1) % 9 == 0) {
-                finalItems.add(AdTable.getRandomAd()); 
+                finalItems.add(AdCatalogConvert(AdTable.getRandomAd())); 
             }
         }
         
