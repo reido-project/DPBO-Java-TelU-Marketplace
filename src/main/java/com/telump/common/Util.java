@@ -99,7 +99,9 @@ public class Util {
         String fullNewName = id + extension;
 
         try {
-            Path targetDir = Paths.get(storePath);
+            String projectRoot = System.getProperty("user.dir");
+            Path targetDir = Paths.get(projectRoot, "src", "main", "java", storePath);
+            
             if (!Files.exists(targetDir)) {
                 Files.createDirectories(targetDir);
             }
@@ -109,7 +111,7 @@ public class Util {
 
             System.out.println("\nSuccess!");
         } catch (IOException e) {
-            System.out.println("An error occurred during the copy operation: " + e.getMessage());
+            System.out.println("An error occurred during the upload operation: " + e.getMessage());
             return null;
         }
 

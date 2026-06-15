@@ -1,63 +1,79 @@
 package com.telump.seeds;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import com.telump.common.ItemType;
 
-public class TestUtil {
-    private static final Map<ItemType, Integer> imageCounters = new HashMap<>();
+public final class TestUtil {
+
+    private static final Map<ItemType, Integer> imageCounters =
+            new EnumMap<>(ItemType.class);
 
     static {
         imageCounters.put(ItemType.Ad, 1);
         imageCounters.put(ItemType.Item, 1);
     }
 
+    private TestUtil() {
+    }
+
     public static String handleImageUploadTest(String id, ItemType type) {
-        String storePath = null;
-        String seedPathPrefix = null;
 
-        if (type == ItemType.Ad) {
-            storePath = "com/telump/asset/ad/";
-            seedPathPrefix = "com/telump/seeds/testImages/ad/";
-        } else if (type == ItemType.Item) {
-            storePath = "com/telump/asset/listing/";
-            seedPathPrefix = "com/telump/seeds/testImages/item/";
+        String resourceFolder;
+        String targetFolderSubPath;
+
+        switch (type) {
+            case Ad:
+                resourceFolder = "com/telump/seeds/testImages/ad/";
+                targetFolderSubPath = "com/telump/asset/ad/";
+                break;
+
+            case Item:
+                resourceFolder = "com/telump/seeds/testImages/item/";
+                targetFolderSubPath = "com/telump/asset/listing/";
+                break;
+
+            default:
+                return null;
         }
 
-        if (storePath == null) {
-            return null;
-        }
+        int currentIndex = imageCounters.getOrDefault(type, 1);
 
-        int currentSeedIndex = imageCounters.get(type);
-        String extension = ".png";
-        Path sourcePath = Paths.get(seedPathPrefix + currentSeedIndex + extension);
+        String fileName = currentIndex + ".png";
+        String resourcePath = resourceFolder + fileName;
 
-        if (!Files.exists(sourcePath) || Files.isDirectory(sourcePath)) {
-            return null;
-        }
+        try (InputStream in = TestUtil.class.getClassLoader().getResourceAsStream(resourcePath)) {
 
-        String fullNewName = id + extension;
-        try {
-            Path targetDir = Paths.get(storePath);
-            if (!Files.exists(targetDir)) {
-                Files.createDirectories(targetDir);
+            if (in == null) {
+                return null;
             }
 
-            Path destinationPath = targetDir.resolve(fullNewName);
-            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            String projectRoot = System.getProperty("user.dir");
             
-            imageCounters.put(type, currentSeedIndex + 1);
+            Path targetDir = Paths.get(projectRoot, "src", "main", "java", targetFolderSubPath);
+
+            Files.createDirectories(targetDir);
+
+            Path destination = targetDir.resolve(id + ".png");
+
+            Files.copy(
+                    in,
+                    destination,
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            imageCounters.put(type, currentIndex + 1);
+
+            return targetFolderSubPath + id + ".png";
 
         } catch (IOException e) {
             return null;
         }
-
-        return storePath + fullNewName;
     }
 }

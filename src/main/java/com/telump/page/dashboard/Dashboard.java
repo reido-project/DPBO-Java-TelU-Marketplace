@@ -36,12 +36,16 @@ public class Dashboard {
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
                     CatalogItem selectedRandom = openCatalog(SearchService.getRandomItems());
-                    printItemInfo(selectedRandom);
+                    if(selectedRandom != null){
+                        printItemInfo(selectedRandom);
+                    }
                     continue;
                 case 2:
                     String query = Util.stringInput("Cari: ");
                     CatalogItem selectedSearch = openCatalog(SearchService.globalSearch(query));
-                    printItemInfo(selectedSearch);
+                    if(selectedSearch != null){
+                        printItemInfo(selectedSearch);
+                    }
                     continue;
                 case 3:
                     Profile.showProfile();
@@ -101,6 +105,7 @@ public class Dashboard {
                         Penjual: @%s
 
                         """, item.getId(), item.getTitle(), item.getDescription(), item.getFormattedPrice(), item.getCategory().getName(), item.getSeller().getUsername());
+                Util.stringInput("Input Apapun Untuk Keluar: ");
                 return;
             case Ad:
                 Ad ad = AdTable.getAdById(catalogItem.getId());
@@ -113,6 +118,7 @@ public class Dashboard {
                         Pengiklan: @%s
 
                         """, ad.getId(), ad.getTitle(), ad.getDescription(), ad.getTargetUrl(), ad.getRegistrant().getUsername());
+                Util.stringInput("Input Apapun Untuk Keluar: ");
                 return;
             case User:
                 User user = UserTable.findByUsername(catalogItem.getId());
@@ -125,6 +131,7 @@ public class Dashboard {
                         Role: %s
 
                         """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), String.valueOf(user.getRole()));
+                Util.stringInput("Input Apapun Untuk Keluar: ");
                 return;
             default:
                 System.out.println("\nNo Item Selected.");
