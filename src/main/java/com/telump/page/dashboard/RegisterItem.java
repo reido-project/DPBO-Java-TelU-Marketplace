@@ -24,7 +24,7 @@ public class RegisterItem {
         String imagePath = Util.handleImageUpload(id, ItemType.Item);
 
         //cari category
-        String cleanedCategoryName = categoryName.trim();
+        String cleanedCategoryName = categoryName.trim().toLowerCase();
         Category category = CategoryTable.getCategoryByName(cleanedCategoryName);
         
         if (category == null) {
