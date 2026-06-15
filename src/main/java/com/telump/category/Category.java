@@ -4,6 +4,8 @@
  */
 package com.telump.category;
 
+import com.telump.database.CategoryTable;
+
 /**
  *
  * @author HYPE AMD
@@ -16,6 +18,8 @@ public class Category {
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
+
+        CategoryTable.create(this);
     }
 
     public int getId() {

@@ -24,11 +24,15 @@ public class RegisterItem {
         String imagePath = Util.handleImageUpload(id, ItemType.Item);
 
         //cari category
-        Category category = CategoryTable.getCategoryByName(categoryName);
+        String cleanedCategoryName = categoryName.trim();
+        Category category = CategoryTable.getCategoryByName(cleanedCategoryName);
         
         if (category == null) {
-        errorMessage = "Kategori tidak ditemukan.";
-            new AppInfo(errorMessage, State.RegisterItem);
+            int nextId = CategoryTable.getCategoryList().size() + 1;
+
+            category = new Category(nextId, cleanedCategoryName);
+
+            CategoryTable.create(category);
         }
         //Mengambil user
         User currentUser = AppController.getSession();

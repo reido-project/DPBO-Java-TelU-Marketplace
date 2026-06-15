@@ -54,6 +54,9 @@ public class Dashboard {
                     UpdateProfile.showUpdateProfileMenu();
                     continue;
                 case 5:
+                    AppInfo registerItemInfo = new RegisterItem().registerItem();
+                    errorMessage = registerItemInfo.getErrorMessage();
+                    appState = registerItemInfo.getAppState();
                     continue;
                 case 6:
                     AppInfo registerAdInfo = new RegisterAdPage().registerAd();
