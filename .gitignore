@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Project ###
+src/main/java/com/telump/asset/ad/
+src/main/java/com/telump/asset/listing/
