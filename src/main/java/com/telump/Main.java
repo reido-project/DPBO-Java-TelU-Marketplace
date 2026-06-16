@@ -3,9 +3,11 @@ package com.telump;
 import com.telump.catalog.Ad;
 import com.telump.catalog.Item;
 import com.telump.database.AdTable;
+import com.telump.database.CategoryTable;
 import com.telump.database.ItemTable;
 import com.telump.database.UserTable;
 import com.telump.seeds.AdSeeds;
+import com.telump.seeds.CategorySeeds;
 import com.telump.seeds.ItemSeeds;
 import com.telump.seeds.TestUtil;
 import com.telump.user.Admin;
@@ -27,6 +29,7 @@ public class Main {
     private static void init(){ 
         // Initialize default users for testing (HARDCODED)
         initializeDefaultUsers();
+        seedCategory();
         seedProduct();
         seedAd();
     }
@@ -50,7 +53,7 @@ public class Main {
 
     private static void seedProduct() {
         User user = UserTable.findByUsername("user");
-        Category ctg = new Category(1, "Test");
+        Category ctg = CategoryTable.getCategoryById(1);
 
         ItemSeeds[] items = {
             new ItemSeeds(
@@ -119,6 +122,29 @@ public class Main {
             String imagePath = TestUtil.handleImageUploadTest(id, ItemType.Item); 
 
             ItemTable.create(new Item(id, title, description, price, user, ctg, imagePath));
+        }
+    }
+
+    private static void seedCategory() {
+        CategorySeeds[] categories = {
+            new CategorySeeds(1, "Test"),
+            new CategorySeeds(2, "Elektronik"),
+            new CategorySeeds(3, "Fashion"),
+            new CategorySeeds(4, "Kendaraan"),
+            new CategorySeeds(5, "Hobi & Koleksi"),
+            new CategorySeeds(6, "Rumah & Taman"),
+            new CategorySeeds(7, "Olahraga & Outdoor"),
+            new CategorySeeds(8, "Kesehatan & Kecantikan"),
+            new CategorySeeds(9, "Mainan & Game"),
+            new CategorySeeds(10, "Perlengkapan Rumah"),
+            new CategorySeeds(11, "Souvenir & Oleh-oleh"),
+            new CategorySeeds(12, "Lainnya")
+        };
+
+        for (CategorySeeds categorySeed : categories) {
+            if (CategoryTable.getCategoryById(categorySeed.getId()) == null) {
+                new Category(categorySeed.getId(), categorySeed.getName());
+            }
         }
     }
 
