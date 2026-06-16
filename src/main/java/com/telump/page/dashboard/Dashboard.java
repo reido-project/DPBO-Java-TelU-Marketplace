@@ -11,6 +11,7 @@ import com.telump.database.ItemTable;
 import com.telump.database.UserTable;
 import com.telump.page.AppInfo;
 import com.telump.page.profile.Profile;
+import com.telump.page.profile.UpdateAd;
 import com.telump.page.profile.UpdateProfile;
 import com.telump.user.User;
 import com.telump.common.AuthenticationService;
@@ -41,12 +42,12 @@ public class Dashboard {
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
                     selectedItem = openCatalog(SearchService.globalSearch(null));
-                    printItemInfo(selectedItem);
+                    printItemInfo(selectedItem, "Input y Untuk Keluar: ");
                     continue;
                 case 2:
                     String query = Util.stringInput("Cari: ");
                     selectedItem = openCatalog(SearchService.globalSearch(query));
-                    printItemInfo(selectedItem);
+                    printItemInfo(selectedItem, "Input y Untuk Keluar: ");
                     continue;
                 case 3:
                     Profile.showProfile();
@@ -66,11 +67,15 @@ public class Dashboard {
                     continue;
                 case 7:
                     selectedItem = openCatalog(SearchService.searchItemsByUsername(AppController.getSession().getUsername()));
-                    printItemInfo(selectedItem);
+                    if(printItemInfo(selectedItem, "Edit Item? (y/n): ")){
+                        //Masuk ke halaman edit item
+                    }
                     continue;
                 case 8:
                     selectedItem = openCatalog(SearchService.searchAdsByUsername(AppController.getSession().getUsername()));
-                    printItemInfo(selectedItem);
+                    if(printItemInfo(selectedItem, "Edit Ad? (y/n): ")){
+                        UpdateAd.updateAd();
+                    }
                     continue;
                 case 9:
                     // Logout user dan hapus sesi
@@ -103,10 +108,10 @@ public class Dashboard {
         return window.getSelectedItem();
     }
 
-    private void printItemInfo(CatalogItem catalogItem){
+    private boolean printItemInfo(CatalogItem catalogItem, String message){
         if(catalogItem == null){
             System.out.println("\nNo Item Was Selected.");
-            return;
+            return false;
         }
 
         switch(catalogItem.getType()){
@@ -122,8 +127,7 @@ public class Dashboard {
                         Penjual: @%s
 
                         """, item.getId(), item.getTitle(), item.getDescription(), item.getFormattedPrice(), item.getCategory().getName(), item.getSeller().getUsername());
-                Util.stringInput("Input Apapun Untuk Keluar: ");
-                return;
+                return Util.confirmation("Input Apapun Untuk Keluar: ");
             case Ad:
                 Ad ad = AdTable.getAdById(catalogItem.getId());
                 System.out.printf("""
@@ -135,8 +139,7 @@ public class Dashboard {
                         Pengiklan: @%s
 
                         """, ad.getId(), ad.getTitle(), ad.getDescription(), ad.getTargetUrl(), ad.getRegistrant().getUsername());
-                Util.stringInput("Input Apapun Untuk Keluar: ");
-                return;
+                return Util.confirmation("Input Apapun Untuk Keluar: ");
             case User:
                 User user = UserTable.findByUsername(catalogItem.getId());
                 System.out.printf("""
@@ -148,11 +151,10 @@ public class Dashboard {
                         Role: %s
 
                         """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), String.valueOf(user.getRole()));
-                Util.stringInput("Input Apapun Untuk Keluar: ");
-                return;
+                return Util.confirmation("Input Apapun Untuk Keluar: ");
             default:
                 System.out.println("\nNo Item Was Selected.");
-                return;
+                return false;
         }
     }
 }
