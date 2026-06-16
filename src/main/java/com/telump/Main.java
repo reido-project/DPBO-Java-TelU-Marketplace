@@ -8,12 +8,14 @@ import com.telump.database.ItemTable;
 import com.telump.database.UserTable;
 import com.telump.seeds.AdSeeds;
 import com.telump.seeds.CategorySeeds;
+import com.telump.seeds.ReviewSeeds;
 import com.telump.seeds.ItemSeeds;
 import com.telump.seeds.TestUtil;
 import com.telump.user.Admin;
 import com.telump.user.RegularUser;
 import com.telump.user.User;
 import com.telump.category.*;
+import com.telump.review.*;
 import com.telump.common.ItemType;
 import com.telump.common.Util;
 
@@ -35,6 +37,7 @@ public class Main {
         
         seedUser();
         seedCategory();
+        seedReview();
         seedItem();
         seedAd();
     }
@@ -229,6 +232,51 @@ public class Main {
             if (CategoryTable.getCategoryById(categorySeed.getId()) == null) {
                 new Category(categorySeed.getId(), categorySeed.getName());
             }
+        }
+    }
+
+    
+
+    private static String getRandomUsername() {
+        return UserTable.getRandomUser().getUsername();
+    }
+
+    private static void seedReview() {
+        ReviewSeeds[] reviews = {
+            new ReviewSeeds(
+                "user", 
+                getRandomUsername(),
+                "Adminnya ramah banget, pelayanan cepat!", 
+                5
+            ),
+            new ReviewSeeds(
+                "user", 
+                getRandomUsername(),
+                "Barang sesuai deskripsi, kualitas oke!", 
+                4
+            ),
+            new ReviewSeeds(
+                "user", 
+                getRandomUsername(),
+                "Pengiriman cepat, packing rapi!", 
+                5
+            ),
+            new ReviewSeeds(
+                "user", 
+                getRandomUsername(),
+                "Harga bersaing, recommended seller!", 
+                4
+            ),
+            new ReviewSeeds(
+               "user", 
+               getRandomUsername(),
+               "Sangat puas dengan pengalaman belanja di sini!", 
+               5
+            )
+        };
+
+        for (ReviewSeeds review : reviews) {
+            new Review(review.getReviewer(), review.getTargetUsername(), review.getComment(), review.getRating());
         }
     }
 

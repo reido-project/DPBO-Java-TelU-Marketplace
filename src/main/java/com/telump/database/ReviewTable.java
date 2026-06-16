@@ -9,30 +9,40 @@ public class ReviewTable implements IDatabase {
     private static final List<Review> reviewTable = new ArrayList<>();
     private static int nextId = 1;
 
-    public static List<Review> getReviewsByItem(int itemId) {
+    public List<Review> getAll() {
+        return new ArrayList<>(reviewTable);
+    }
+
+    public Review getById(int id) {
+        for (Review review : reviewTable) {
+            if (review.getId() == id) {
+                return review;
+            }
+        }
+        return null;
+    }
+
+    public List<Review> getByTargetUsername(String targetUsername) {
         List<Review> result = new ArrayList<>();
-        for (Review r : reviewTable) {
-            if (r.getItemId() == itemId) {
-                result.add(r);
+        for (Review review : reviewTable) {
+            if (review.getTargetUsername().equals(targetUsername)) {
+                result.add(review);
             }
         }
         return result;
     }
 
-    public static double getAverageRating(int itemId) {
-        List<Review> reviews = getReviewsByItem(itemId);
-        if (reviews.isEmpty()) {
-            return 0.0;
+    public List<Review> getByReviewer(String reviewer) {
+        List<Review> result = new ArrayList<>();
+        for (Review review : reviewTable) {
+            if (review.getReviewer().equals(reviewer)) {
+                result.add(review);
+            }
         }
-
-        int totalRating = 0;
-        for (Review r : reviews) {
-            totalRating += r.getRating();
-        }
-        return (double) totalRating / reviews.size();
+        return result;
     }
 
-    public String create(Review review) {
+    public static String create(Review review) {
         if (review == null) {
             return null;
         }
