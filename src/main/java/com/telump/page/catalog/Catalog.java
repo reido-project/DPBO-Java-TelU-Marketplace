@@ -1,6 +1,6 @@
 package com.telump.page.catalog;
 
-import com.telump.catalog.Ad;
+import com.telump.Main;
 import com.telump.catalog.CatalogItem;
 import com.telump.page.catalog.layout.WrapLayout;
 
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.net.URL;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.util.Set;
 
 public class Catalog extends JFrame {
     private CatalogItem selectedItem;
@@ -18,8 +18,15 @@ public class Catalog extends JFrame {
         return selectedItem;
     }
 
-    public Catalog(List<CatalogItem> items){
+    public Catalog(Set<CatalogItem> items){
         super("Tel-U Marketplace");
+
+        URL imgURL = Main.class.getResource("/com/telump/asset/emblem.png");
+        
+        if (imgURL != null) {
+            Image icon = new ImageIcon(imgURL).getImage();
+            setIconImage(icon);
+        }
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1350, 800);

@@ -1,6 +1,6 @@
 package com.telump.page.dashboard;
 
-import java.util.List;
+import java.util.Set;
 
 import com.telump.catalog.*;
 import com.telump.common.State;
@@ -31,11 +31,11 @@ public class Dashboard {
                 6. Register Ad
                 9. Logout
                 0. Exit
-                %s\n
+                %s
                 """, errorMessage);
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
-                    CatalogItem selectedRandom = openCatalog(SearchService.getRandomItems());
+                    CatalogItem selectedRandom = openCatalog(SearchService.globalSearch(null));
                     if(selectedRandom != null){
                         printItemInfo(selectedRandom);
                     }
@@ -79,7 +79,7 @@ public class Dashboard {
         }
     }
 
-    private CatalogItem openCatalog(List<CatalogItem> items){
+    private CatalogItem openCatalog(Set<CatalogItem> items){
         Catalog window = new Catalog(items);
         window.setVisible(true);
 

@@ -53,6 +53,7 @@ public class AppController {
                 case State.Login:
                     if (!Util.confirmation("Continue to Login? (y/n): ")) {
                         appState = State.Start;
+                        rf = null;
                         break;
                     }
                     rf = loginPage.login();
@@ -60,6 +61,7 @@ public class AppController {
                 case State.RegisterAccount:
                     if (!Util.confirmation("Continue to Registration? (y/n): ")) {
                         appState = State.Start;
+                        rf = null;
                         break;
                     }
                     rf = registerAccountPage.register();

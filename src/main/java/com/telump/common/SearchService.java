@@ -4,102 +4,113 @@ import com.telump.database.*;
 import com.telump.catalog.*;
 import com.telump.user.User;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.List;
 
 public class SearchService {
-    public static List<CatalogItem> globalSearch(String query){
-        List<CatalogItem> items = new ArrayList<>();
-        String trimmedQuery = query.trim();
-
-        if(trimmedQuery == null || trimmedQuery.isBlank()){
-            return getRandomItems();
+    public static Set<CatalogItem> globalSearch(String query){
+        Set<CatalogItem> items = new LinkedHashSet<>();
+    
+        if (query == null || query.isBlank()) {
+            items.addAll(getRandomItems());
+            return injectAds(items);
         }
+        
+        String trimmedQuery = query.trim();
         
         if(trimmedQuery.startsWith("@")){
             items.addAll(searchUser(trimmedQuery.substring(1)));
         }
         else{
-            items.addAll(searchByTag(trimmedQuery));
+            items.addAll(searchById(trimmedQuery));
 
-            if(items.isEmpty()){
-                items.addAll(searchByTitle(trimmedQuery));
+            if(!items.isEmpty()){
+                return injectAds(items);
             }
+
+            items.addAll(searchByCategory(trimmedQuery));
+            items.addAll(searchByTitle(trimmedQuery));
         }
 
-        if(items.isEmpty()){
-            return getRandomItems();
-        }
+        items.addAll(getRandomItems());
 
         return injectAds(items);
     }
 
-    public static List<CatalogItem> getRandomItems(){
-        return injectAds(ItemCatalogConvert(ItemTable.getRandomItems()));
+    public static Set<CatalogItem> getRandomItems(){
+        return itemCatalogConvert(ItemTable.getRandomItems());
     }
 
-    private static List<CatalogItem> searchByTag(String query){
-        return ItemCatalogConvert(ItemTable.getItemsByCategory(query));
+    private static Set<CatalogItem> searchById(String query){
+        return itemCatalogConvert(ItemTable.getItemListById(query));
     }
 
-    private static List<CatalogItem> searchByTitle(String query){
-        return ItemCatalogConvert(ItemTable.getItemsByTitle(query));
+    private static Set<CatalogItem> searchByCategory(String query){
+        return itemCatalogConvert(ItemTable.getItemsByCategory(query));
     }
 
-    private static List<CatalogItem> searchUser(String query){
-        return UserCatalogConvert(UserTable.getUsersByTitle(query));
+    private static Set<CatalogItem> searchByTitle(String query){
+        return itemCatalogConvert(ItemTable.getItemsByTitle(query));
     }
 
-    private static List<CatalogItem> ItemCatalogConvert(List<Item> items){
-        List<CatalogItem> catalogItems = new ArrayList<>();
+    private static Set<CatalogItem> searchUser(String query){
+        return userCatalogConvert(UserTable.getUsersByTitle(query));
+    }
+
+    private static Set<CatalogItem> itemCatalogConvert(List<Item> items){
+        Set<CatalogItem> catalogItems = new LinkedHashSet<>();
 
         if(items == null || items.isEmpty()){
             return catalogItems;
         }
 
         for(Item i : items){
-            catalogItems.add(new CatalogItem(i.getId(), i.getTitle(), i.getFormattedPrice(), ItemType.Item, i.getImagePath()));
+            catalogItems.add(new CatalogItem(i.getId(), i.getTitle(), i.getFormattedPrice(), ItemType.Item, i.getImagePath(), null));
         }
 
         return catalogItems;
     }
 
-    private static CatalogItem AdCatalogConvert(Ad ad){
+    private static CatalogItem adCatalogConvert(Ad ad){
         if(ad == null){
             Ad nullAd = AdTable.getDefaultAd();
-            return new CatalogItem(nullAd.getId(), nullAd.getTitle(), nullAd.getDescription(), ItemType.Ad, nullAd.getImagePath());
+            return new CatalogItem(nullAd.getId(), nullAd.getTitle(), nullAd.getDescription(), ItemType.Ad, nullAd.getImagePath(), UUID.randomUUID().toString());
         }
 
-        return new CatalogItem(ad.getId(), ad.getTitle(), ad.getDescription(), ItemType.Ad, ad.getImagePath());
+        return new CatalogItem(ad.getId(), ad.getTitle(), ad.getDescription(), ItemType.Ad, ad.getImagePath(), UUID.randomUUID().toString());
     }
 
-    private static List<CatalogItem> UserCatalogConvert(List<User> users){
-        List<CatalogItem> catalogItems = new ArrayList<>();
+    private static Set<CatalogItem> userCatalogConvert(List<User> users){
+        Set<CatalogItem> catalogItems = new LinkedHashSet<>();
 
         if(users == null || users.isEmpty()){
             return catalogItems;
         }
 
         for(User u : users){
-            catalogItems.add(new CatalogItem(u.getUsername(), u.getProfilname(), u.getBio(), ItemType.User, u.getImagePath()));
+            catalogItems.add(new CatalogItem(u.getUsername(), u.getProfilname(), u.getBio(), ItemType.User, u.getImagePath(), null));
         }
 
         return catalogItems;
     }
 
-    private static List<CatalogItem> injectAds(List<CatalogItem> items){
-        List<CatalogItem> finalItems = new ArrayList<>();
+    private static Set<CatalogItem> injectAds(Set<CatalogItem> items){
+        Set<CatalogItem> finalItems = new LinkedHashSet<>();
         
         if (items == null || items.isEmpty()) {
             return finalItems;
         }
 
-        for (int i = 0; i < items.size(); i++) {
-            finalItems.add(items.get(i));
+        int index = 1;
+        for (CatalogItem item : items) {
+            finalItems.add(item);
             
-            if ((i + 1) % 9 == 0) {
-                finalItems.add(AdCatalogConvert(AdTable.getRandomAd())); 
+            if (index % 9 == 0) {
+                finalItems.add(adCatalogConvert(AdTable.getRandomAd())); 
             }
+            index++;
         }
         
         return finalItems;
