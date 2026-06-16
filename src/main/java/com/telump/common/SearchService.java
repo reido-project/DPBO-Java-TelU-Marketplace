@@ -21,7 +21,7 @@ public class SearchService {
         String trimmedQuery = query.trim();
         
         if(trimmedQuery.startsWith("@")){
-            items.addAll(searchUser(trimmedQuery.substring(1)));
+            items.addAll(searchUsers(trimmedQuery.substring(1)));
         }
         else{
             items.addAll(searchById(trimmedQuery));
@@ -55,8 +55,16 @@ public class SearchService {
         return itemCatalogConvert(ItemTable.getItemsByTitle(query));
     }
 
-    private static Set<CatalogItem> searchUser(String query){
+    private static Set<CatalogItem> searchUsers(String query){
         return userCatalogConvert(UserTable.getUsersByTitle(query));
+    }
+
+    public static Set<CatalogItem> searchItemsByUsername(String username){
+        return itemCatalogConvert(ItemTable.getItemsByUsername(username));
+    }
+
+    public static Set<CatalogItem> searchAdsByUsername(String username){
+        return adCatalogConvert(AdTable.getAdsByUsername(username));
     }
 
     private static Set<CatalogItem> itemCatalogConvert(List<Item> items){
@@ -80,6 +88,20 @@ public class SearchService {
         }
 
         return new CatalogItem(ad.getId(), ad.getTitle(), ad.getDescription(), ItemType.Ad, ad.getImagePath(), UUID.randomUUID().toString());
+    }
+
+    private static Set<CatalogItem> adCatalogConvert(List<Ad> ads){
+        Set<CatalogItem> catalogItems = new LinkedHashSet<>();
+
+        if(ads == null || ads.isEmpty()){
+            return catalogItems;
+        }
+
+        for(Ad ad : ads){
+            catalogItems.add(new CatalogItem(ad.getId(), ad.getTitle(), ad.getDescription(), ItemType.Ad, ad.getImagePath(), UUID.randomUUID().toString()));
+        }
+
+        return catalogItems;
     }
 
     private static Set<CatalogItem> userCatalogConvert(List<User> users){

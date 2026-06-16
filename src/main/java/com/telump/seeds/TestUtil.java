@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -74,6 +75,27 @@ public final class TestUtil {
 
         } catch (IOException e) {
             return null;
+        }
+    }
+
+    public static void cleanAsset(String mavenRoot) throws IOException {
+        Path[] targets = {
+            Paths.get(mavenRoot, "src/main/java/com/telump/asset/ad"),
+            Paths.get(mavenRoot, "src/main/java/com/telump/asset/listing")
+        };
+
+        for (Path target : targets) {
+            if (Files.exists(target)) {
+                Files.walk(target)
+                     .filter(path -> !path.equals(target))
+                     .sorted(Comparator.reverseOrder())
+                     .forEach(path -> {
+                         try {
+                             Files.delete(path);
+                         } catch (IOException ignored) {
+                         }
+                     });
+            }
         }
     }
 }

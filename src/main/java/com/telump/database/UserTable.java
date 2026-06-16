@@ -1,6 +1,8 @@
 package com.telump.database;
 
 import com.telump.user.User;
+import com.telump.user.UserRole;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,28 @@ public class UserTable implements IDatabase {
         }
 
         return results;
+    }
+
+    public static User getRandomUser() {
+        // Validasi: Jika ukuran list kurang dari 3, berarti tidak ada index >= 2
+        if (userTable.size() < 3) {
+            System.out.println("Gagal mengambil random user: Jumlah user di database minimal harus 3.");
+            return null;
+        }
+
+        // Menentukan batas bawah (index 2) dan batas atas (ukuran list)
+        int minIndex = 2;
+        int maxIndex = userTable.size();
+
+        // Formula untuk mendapatkan angka acak di rentang [minIndex, maxIndex - 1]
+        java.util.Random random = new java.util.Random();
+        
+        while(true){
+            int randomIndex = random.nextInt(maxIndex - minIndex) + minIndex;
+            if(userTable.get(randomIndex).getRole() == UserRole.USER){
+                return userTable.get(randomIndex);
+            }
+        }
     }
 
     /**

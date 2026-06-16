@@ -4,11 +4,13 @@ public class ItemSeeds {
     private final String title;
     private final String description;
     private final int price;
+    private final int category;
 
-    public ItemSeeds(String title, String description, int price) {
+    public ItemSeeds(String title, String description, int price, int category) {
         this.title = title;
         this.description = description;
         this.price = price;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -21,5 +23,9 @@ public class ItemSeeds {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getCategory(){
+        return category;
     }
 }

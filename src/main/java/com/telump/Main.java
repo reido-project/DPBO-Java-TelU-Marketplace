@@ -27,89 +27,166 @@ public class Main {
     }
  
     private static void init(){ 
-        // Initialize default users for testing (HARDCODED)
-        initializeDefaultUsers();
+        try{
+            TestUtil.cleanAsset("./");
+        }catch(Exception e){
+            System.out.println("Error cleaning up");
+        }
+        
+        seedUser();
         seedCategory();
-        seedProduct();
+        seedItem();
         seedAd();
     }
 
-    /**
-     * Inisialisasi akun default untuk testing:
-     * - 1 akun ADMIN: admin / admin123
-     * - 1 akun USER biasa: user / user123
-     */
-    private static void initializeDefaultUsers() {
-        // Create Admin account
-        Admin adminUser = new Admin("admin", "admin123", "Administrator", "admin@telu.ac.id", "Admin account for Tel-U Marketplace");
-        UserTable.save(adminUser);
-        System.out.println("[Init] Default ADMIN account created: admin / admin123");
+    private static void seedUser() {
+        User[] users = {
+            new Admin(
+                "admin", 
+                "admin#1234", 
+                "Administrator", 
+                "admin@telu.ac.id", 
+                "Admin account for Tel-U Marketplace"
+            ),
+            new RegularUser(
+                "user", 
+                "user123", 
+                "Regular User", "user@student.telu.ac.id", 
+                "Regular user account for testing"
+            ),
+            new Admin(
+                "ambatukam", 
+                "leleAmbaGacor123", 
+                "Mas Amba", 
+                "masambatukam@student.telkomuniversity.ac.id", 
+                "Kumis tipis, sungut lele merintis."
+            ),
+            new Admin(
+                "masfaiz", 
+                "leleDombaGoyang", 
+                "Mas Faiz", 
+                "masfaiz@student.telkomuniversity.ac.id", 
+                "Bukan sembarang lele, ini lele premium."
+            ),
+            new Admin(
+                "mashambali", 
+                "kumisLeleHambali99", 
+                "Mas Hambali", 
+                "mashambali@student.telkomuniversity.ac.id", 
+                "Kapten sungut lele regional Bojongsoang."
+            ),
+            new RegularUser(
+                "masrozik", 
+                "umpanCacingSutra", 
+                "Mas Rozik", 
+                "08134567890", 
+                "Hati-hati ketusuk patil lele."
+            ),
+            new RegularUser(
+                "ruddiularsawah", 
+                "sungutLeleSawah45", 
+                "Mas Ruddi Ular Sawah", 
+                "08126942067", 
+                "Sawah boleh becek, sungut lele tetep pede."
+            ),
+            new RegularUser(
+                "satriosulsel", 
+                "sungutGetarMaut", 
+                "Mas Satrio", 
+                "08571234567", 
+                "Mancing mania mantap, sungut lele siap."
+            ),
+            new RegularUser(
+                "masfuad", 
+                "pecelLeleGarisKeras", 
+                "Mas Fu'ad", 
+                "masfuad@student.telkomuniversity.ac.id", 
+                "Pecinta pecel lele tanpa kubis."
+            ),
+            new RegularUser(
+                "rehanwangsaf", 
+                "kumisBapackLele", 
+                "Mas Rehan", 
+                "08998765432", 
+                "Sungut lele adalah jalan ninjaku."
+            )
+        };
 
-        // Create Regular User account
-        RegularUser regularUser = new RegularUser("user", "user123", "Regular User", "user@student.telu.ac.id", "Regular user account for testing");
-        UserTable.save(regularUser);
+        for(User user : users){
+            UserTable.save(user);
+        }
+
+        System.out.println("[Init] Default ADMIN account created: admin / admin#1234");
         System.out.println("[Init] Default USER account created: user / user123");
     }
 
-    private static void seedProduct() {
-        User user = UserTable.findByUsername("user");
-        Category ctg = CategoryTable.getCategoryById(1);
-
+    private static void seedItem() {
         ItemSeeds[] items = {
             new ItemSeeds(
                 "1 Dollar", 
                 "Selembar 1 Dollar Amerika", 
-                18190
+                18190,
+                5
             ),
             new ItemSeeds(
                 "Scar Megalodon", 
                 "Senjata Legendaris Epep Papale Papale", 
-                2000000
+                2000000,
+                9
             ),
             new ItemSeeds(
                 "Chiaki-chan >//<", 
                 "Chiaki-chan wangy wangy >//<", 
-                Integer.MAX_VALUE
+                Integer.MAX_VALUE,
+                11
             ),
             new ItemSeeds(
                 "Ahegao Hoodie", 
                 "Tambahkan aura mu +999999 dengan hoodie ini!", 
-                250000
+                250000,
+                3
             ),
             new ItemSeeds(
                 "Rudal Jawa", 
                 "Mas Ruddi Ular Sawah ingin menemuimu!", 
-                1
+                1,
+                10
             ),
             new ItemSeeds(
                 "Suara Rakyat", 
                 "Ingin menang pemilu? Beli sekarang!", 
-                50000
+                50000,
+                12
             ),
             new ItemSeeds(
                 "Assasin Cina", 
-                "Assasin yang mempelajari ilmu pembunuhan rahasia dari Cina", 
-                200000
+                "Assasin yang mempelajari ilmu pembunuhan rahasia dari Cina, siap membantu kardiomu!", 
+                200000,
+                7
             ),
             new ItemSeeds(
                 "Gitar Miku", 
                 "Gitar berbentuk Miku", 
-                15000000
+                15000000,
+                2
             ),
             new ItemSeeds(
                 "Ulet Bulu Inggris", 
                 "Ulet bulu Inggris asal dari Yorkshire, bisa menangani masalah2 medis", 
-                3000000
+                3000000,
+                8
             ),
             new ItemSeeds(
                 "Bass Fretless", 
                 "Bass Fretless model JazzMaster", 
-                12500000
+                12500000,
+                2
             ),
             new ItemSeeds(
                 "Kuda Balap Putih", 
                 "Kuda balap warna putih, bisa melakukan moonwalk seperti Michael Jackson", 
-                200000000
+                200000000,
+                4
             )
         };
 
@@ -118,6 +195,13 @@ public class Main {
             String title = item.getTitle();
             String description = item.getDescription();
             int price = item.getPrice();
+            User user = UserTable.getRandomUser();
+
+            if(item.getTitle().equals("Rudal Jawa")){
+                user = UserTable.findByUsername("ruddiularsawah");
+            }
+
+            Category ctg = CategoryTable.getCategoryById(item.getCategory());
 
             String imagePath = TestUtil.handleImageUploadTest(id, ItemType.Item); 
 
@@ -149,8 +233,6 @@ public class Main {
     }
 
     private static void seedAd(){
-        User registrant = UserTable.findByUsername("user");
-
         AdSeeds[] ads = {
             new AdSeeds(
                 "Tel-U Marketplace!",
@@ -212,7 +294,7 @@ public class Main {
         
             String imagePath = TestUtil.handleImageUploadTest(id, ItemType.Ad);
             
-            AdTable.create(new Ad(id, title, description, targetUrl, registrant, imagePath));
+            AdTable.create(new Ad(id, title, description, targetUrl, UserTable.getRandomUser(), imagePath));
         }
     }
 }

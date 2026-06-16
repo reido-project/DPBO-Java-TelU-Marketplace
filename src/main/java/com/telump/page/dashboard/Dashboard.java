@@ -2,6 +2,7 @@ package com.telump.page.dashboard;
 
 import java.util.Set;
 
+import com.telump.AppController;
 import com.telump.catalog.*;
 import com.telump.common.State;
 import com.telump.common.Util;
@@ -22,6 +23,8 @@ public class Dashboard {
         State appState = State.Dashboard;
 
         while(true){
+            CatalogItem selectedItem = null;
+
             System.out.printf("""
                 1. See Catalog
                 2. Search Item or User
@@ -29,23 +32,21 @@ public class Dashboard {
                 4. Edit Profile
                 5. Sell Item
                 6. Register Ad
+                7. See Your Active Items
+                8. See Your Active Ads
                 9. Logout
                 0. Exit
                 %s
                 """, errorMessage);
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
-                    CatalogItem selectedRandom = openCatalog(SearchService.globalSearch(null));
-                    if(selectedRandom != null){
-                        printItemInfo(selectedRandom);
-                    }
+                    selectedItem = openCatalog(SearchService.globalSearch(null));
+                    printItemInfo(selectedItem);
                     continue;
                 case 2:
                     String query = Util.stringInput("Cari: ");
-                    CatalogItem selectedSearch = openCatalog(SearchService.globalSearch(query));
-                    if(selectedSearch != null){
-                        printItemInfo(selectedSearch);
-                    }
+                    selectedItem = openCatalog(SearchService.globalSearch(query));
+                    printItemInfo(selectedItem);
                     continue;
                 case 3:
                     Profile.showProfile();
@@ -62,6 +63,14 @@ public class Dashboard {
                     AppInfo registerAdInfo = new RegisterAdPage().registerAd();
                     errorMessage = registerAdInfo.getErrorMessage();
                     appState = registerAdInfo.getAppState();
+                    continue;
+                case 7:
+                    selectedItem = openCatalog(SearchService.searchItemsByUsername(AppController.getSession().getUsername()));
+                    printItemInfo(selectedItem);
+                    continue;
+                case 8:
+                    selectedItem = openCatalog(SearchService.searchAdsByUsername(AppController.getSession().getUsername()));
+                    printItemInfo(selectedItem);
                     continue;
                 case 9:
                     // Logout user dan hapus sesi
@@ -95,6 +104,11 @@ public class Dashboard {
     }
 
     private void printItemInfo(CatalogItem catalogItem){
+        if(catalogItem == null){
+            System.out.println("\nNo Item Was Selected.");
+            return;
+        }
+
         switch(catalogItem.getType()){
             case Item:
                 Item item = ItemTable.getItemById(catalogItem.getId());
@@ -137,7 +151,7 @@ public class Dashboard {
                 Util.stringInput("Input Apapun Untuk Keluar: ");
                 return;
             default:
-                System.out.println("\nNo Item Selected.");
+                System.out.println("\nNo Item Was Selected.");
                 return;
         }
     }

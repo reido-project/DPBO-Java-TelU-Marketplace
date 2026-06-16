@@ -127,4 +127,16 @@ public class ItemTable implements IDatabase{
         
         return randomizedList;
     }
+
+    public static List<Item> getItemsByUsername(String username){
+        List<Item> items = new ArrayList<>();
+
+        for(Item item : itemTable){
+            if(item.getSeller().getUsername().equals(username)){
+                items.add(item);
+            }
+        }
+
+        return items;
+    }
 }

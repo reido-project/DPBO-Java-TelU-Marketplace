@@ -1,9 +1,9 @@
 package com.telump.seeds;
 
 public class AdSeeds {
-    private String title;
-    private String description;
-    private String targetUrl;
+    private final String title;
+    private final String description;
+    private final String targetUrl;
 
     public AdSeeds(String title, String description, String targetUrl) {
         this.title = title;
