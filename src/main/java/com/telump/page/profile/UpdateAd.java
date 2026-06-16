@@ -3,26 +3,32 @@ package com.telump.page.profile;
 import com.telump.catalog.Ad;
 import com.telump.common.Util;
 import com.telump.database.AdTable;
-import com.telump.user.User;
 
 public class UpdateAd {
-    public static void updateAd(){
+    public static void updateAd(String id){
+
+        Ad selectAd = AdTable.getAdById(id);
+
         while(true){
             System.out.println("""
+                =================================
 
                 1. Edit Ad
                 2. Delete Ad
                 0. Kembali
 
+                =================================
                 """);
             int opsi = Util.integerInput("Pilih Opsi: ");
             switch(opsi){
                 case 1:
-                    System.out.println(editAd());
+                    editAd(selectAd);
+                    System.out.println("-----------------------------\nberhasil diupdate\n-----------------------------");
                     continue;
                 case 2:
-                    System.out.println(deleteAd());
-                    continue;
+                    deleteAd(selectAd);
+                    System.out.println("-----------------------------\nberhasil dihapus\n-----------------------------");
+                    return;
                 case 0:
                     return;
                 default:
@@ -31,26 +37,43 @@ public class UpdateAd {
         }
     }
 
-    private static String editAd(){
-        String id = Util.stringInput("Masukkan ID Iklan: ");
-        Ad ad = AdTable.getAdById(id);
+    private static void editAd(Ad selectedAd){
+       int pilihan = 9;
 
-        if(ad == null){
-            return "Iklan tidak ditemukan.";
+            while(pilihan != 0){
+                System.out.println("\n========== EDIT ITEM ==========");
+                System.out.println("Pilih field yang ingin diupdate:");
+                System.out.println("1. Title");
+                System.out.println("2. Description");
+                System.out.println("3. TargetUrl");
+                System.out.println("0. Kembali");
+                System.out.println("=================================");
+
+                pilihan = Util.integerInput("Field yang ingin di update: ");
+
+                System.out.println("---------------------------------");
+
+                switch (pilihan){
+                    case 1:
+                        String title = Util.stringInput("New Title: ");
+                        selectedAd.setTitle(title);
+                        break;
+                    case 2:
+                        String description = Util.stringInput("New Description: ");
+                        selectedAd.setDescription(description);
+                        break;
+                    case 3:
+                        String Url = Util.stringInput("New TargetUrl: ");
+                        selectedAd.setTargetUrl(Url);
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        return;
+                }
         }
-
-        String newTitle = Util.stringInput("Masukkan Judul Yang Baru: ");
-        String newDescription = Util.stringInput("Masukkan Deskripsi Yang Baru: ");
-        String newTargetUrl = Util.stringInput("Masukkan URL Target Yang baru: ");
-        User registrant = ad.getRegistrant();
-        String imagePath = ad.getImagePath();
-
-        Ad newAd = new Ad(id, newTitle, newDescription, newTargetUrl, registrant, imagePath);
-        return AdTable.update(newAd);
     }
-
-    private static String deleteAd(){
-        String id = Util.stringInput("Masukkan ID Iklan: ");
-        return AdTable.delete(id);
-    } 
+    private static String deleteAd (Ad selectedAd){
+        return AdTable.delete(selectedAd.getId());
+    }
 }

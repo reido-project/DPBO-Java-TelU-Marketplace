@@ -12,6 +12,7 @@ import com.telump.database.UserTable;
 import com.telump.page.AppInfo;
 import com.telump.page.profile.Profile;
 import com.telump.page.profile.UpdateAd;
+import com.telump.page.profile.UpdateItem;
 import com.telump.page.profile.UpdateProfile;
 import com.telump.user.User;
 import com.telump.common.AuthenticationService;
@@ -68,13 +69,13 @@ public class Dashboard {
                 case 7:
                     selectedItem = openCatalog(SearchService.searchItemsByUsername(AppController.getSession().getUsername()));
                     if(printItemInfo(selectedItem, "Edit Item? (y/n): ")){
-                        //Masuk ke halaman edit item
+                        UpdateItem.updateItem(selectedItem.getId());
                     }
                     continue;
                 case 8:
                     selectedItem = openCatalog(SearchService.searchAdsByUsername(AppController.getSession().getUsername()));
                     if(printItemInfo(selectedItem, "Edit Ad? (y/n): ")){
-                        UpdateAd.updateAd();
+                        UpdateAd.updateAd(selectedItem.getId());
                     }
                     continue;
                 case 9:
@@ -127,7 +128,7 @@ public class Dashboard {
                         Penjual: @%s
 
                         """, item.getId(), item.getTitle(), item.getDescription(), item.getFormattedPrice(), item.getCategory().getName(), item.getSeller().getUsername());
-                return Util.confirmation("Input Apapun Untuk Keluar: ");
+                return Util.confirmation(message);
             case Ad:
                 Ad ad = AdTable.getAdById(catalogItem.getId());
                 System.out.printf("""
@@ -139,7 +140,7 @@ public class Dashboard {
                         Pengiklan: @%s
 
                         """, ad.getId(), ad.getTitle(), ad.getDescription(), ad.getTargetUrl(), ad.getRegistrant().getUsername());
-                return Util.confirmation("Input Apapun Untuk Keluar: ");
+                return Util.confirmation(message);
             case User:
                 User user = UserTable.findByUsername(catalogItem.getId());
                 System.out.printf("""
@@ -151,7 +152,7 @@ public class Dashboard {
                         Role: %s
 
                         """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), String.valueOf(user.getRole()));
-                return Util.confirmation("Input Apapun Untuk Keluar: ");
+                return Util.confirmation(message);
             default:
                 System.out.println("\nNo Item Was Selected.");
                 return false;

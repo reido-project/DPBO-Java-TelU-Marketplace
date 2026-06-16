@@ -16,12 +16,14 @@ public class RegisterItem {
         String errorMessage = "";
         State appState = State.RegisterItem;
 
+        System.out.println("\n========== REGISTER ITEM ==========");
         String id = Util.generateUUID();
         String title = Util.stringInput("Title: ");
         int price = Util.integerInput("Price: ");
         String description = Util.stringInput("Description: ");
         String categoryName = Util.stringInput("Category: ");
         String imagePath = Util.handleImageUpload(id, ItemType.Item);
+        System.out.println("=================================");
 
         //cari category
         String cleanedCategoryName = categoryName.trim().toLowerCase();
@@ -32,7 +34,6 @@ public class RegisterItem {
 
             category = new Category(nextId, cleanedCategoryName);
 
-            CategoryTable.create(category);
         }
         //Mengambil user
         User currentUser = AppController.getSession();
