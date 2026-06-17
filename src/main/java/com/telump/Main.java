@@ -272,7 +272,91 @@ public class Main {
                getRandomUsername(),
                "Sangat puas dengan pengalaman belanja di sini!", 
                5
-            )
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Barang original dan berkualitas.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Pengiriman sangat cepat.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Packing aman dan rapi.",
+            4
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Seller responsif dan membantu.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Harga sesuai dengan kualitas produk.",
+            4
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Produk berfungsi dengan baik.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Pengalaman belanja memuaskan.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Barang sampai tepat waktu.",
+            4
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Kondisi barang sesuai foto.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Recommended seller.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Respon chat cepat.",
+            4
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Produk sesuai ekspektasi.",
+            5
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+            "Tidak ada kendala selama transaksi.",
+                4
+            ),
+            new ReviewSeeds(
+            "user",
+            getRandomUsername(),
+                "Akan membeli lagi di kemudian hari.",
+            5
+    )
         };
 
         for (ReviewSeeds review : reviews) {
