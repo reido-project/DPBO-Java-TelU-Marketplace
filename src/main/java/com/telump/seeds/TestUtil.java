@@ -6,11 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import com.telump.common.ItemType;
+import com.telump.database.UserTable;
+import com.telump.user.Admin;
+import com.telump.user.User;
 
 public final class TestUtil {
 
@@ -97,5 +103,47 @@ public final class TestUtil {
                      });
             }
         }
+    }
+
+    public static List<ReviewPair> generateReviewPairs() {
+        List<ReviewPair> pairs = new ArrayList<>();
+        List<User> users = UserTable.getAll();
+
+        for (User reviewer : users) {
+            if (reviewer instanceof Admin)
+                continue;
+
+            if (reviewer.getUsername().equals("admin"))
+                continue;
+
+            if (reviewer.getUsername().equals("user"))
+                continue;
+
+            for (User target : users) {
+
+                if (target instanceof Admin)
+                    continue;
+
+                if (target.getUsername().equals("admin"))
+                    continue;
+
+                if (target.getUsername().equals("user"))
+                    continue;
+
+                if (reviewer.equals(target))
+                    continue;
+
+                pairs.add(
+                    new ReviewPair(
+                        reviewer.getUsername(),
+                        target.getUsername()
+                    )
+                );
+            }
+        }
+
+        Collections.shuffle(pairs);
+
+        return pairs;
     }
 }

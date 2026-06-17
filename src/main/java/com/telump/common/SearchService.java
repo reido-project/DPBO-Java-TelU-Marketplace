@@ -56,6 +56,10 @@ public class SearchService {
     }
 
     private static Set<CatalogItem> searchUsers(String query){
+        if(query.isBlank()){
+            return userCatalogConvert(UserTable.getAll());
+        }
+
         return userCatalogConvert(UserTable.getUsersByTitle(query));
     }
 
