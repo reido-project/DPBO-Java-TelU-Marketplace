@@ -1,7 +1,8 @@
 package com.telump.review;
 
-import com.telump.database.ReviewTable;
 import java.time.LocalDateTime;
+
+import com.telump.database.ReviewTable;
 
 public class Review {
     private int id;
@@ -29,4 +30,7 @@ public class Review {
     public LocalDateTime getCreatedAt() { return createdAt; }
 
     public void setId(int id) { this.id = id; }
+    public void setRating(int rating) { this.rating = rating; }
+    public void setComment(String comment) { this.comment = comment; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

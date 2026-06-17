@@ -1,23 +1,28 @@
 package com.telump.page.dashboard;
 
+import java.util.List;
 import java.util.Set;
 
 import com.telump.AppController;
-import com.telump.catalog.*;
+import com.telump.catalog.Ad;
+import com.telump.catalog.CatalogItem;
+import com.telump.catalog.Item;
+import com.telump.common.AuthenticationService;
+import com.telump.common.SearchService;
 import com.telump.common.State;
 import com.telump.common.Util;
 import com.telump.database.AdTable;
 import com.telump.database.ItemTable;
+import com.telump.database.ReviewTable;
 import com.telump.database.UserTable;
 import com.telump.page.AppInfo;
+import com.telump.page.catalog.Catalog;
 import com.telump.page.profile.Profile;
 import com.telump.page.profile.UpdateAd;
 import com.telump.page.profile.UpdateItem;
 import com.telump.page.profile.UpdateProfile;
+import com.telump.review.Review;
 import com.telump.user.User;
-import com.telump.common.AuthenticationService;
-import com.telump.page.catalog.*;
-import com.telump.common.SearchService;
 
 public class Dashboard {
     public AppInfo dashboard(){
@@ -143,6 +148,11 @@ public class Dashboard {
                 return Util.confirmation(message);
             case User:
                 User user = UserTable.findByUsername(catalogItem.getId());
+                
+                // Hitung rating rata-rata
+                double avgRating = ReviewTable.getAverageRating(user.getUsername());
+                List<Review> reviews = ReviewTable.getByTargetUsername(user.getUsername());
+                
                 System.out.printf("""
                         
                         Username: @%s
@@ -150,12 +160,155 @@ public class Dashboard {
                         Bio: %s
                         Kontak: %s
                         Role: %s
+                        Rating: %.1f/5.0 (%d review)
 
-                        """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), String.valueOf(user.getRole()));
+                        """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), 
+                        String.valueOf(user.getRole()), avgRating, reviews.size());
+                
+                // Tampilkan review (maksimal 5 terbaru)
+                displayReviewList(user.getUsername());
+                
+                // Tanyakan apakah ingin memberi review (hanya jika user sedang login dan bukan diri sendiri)
+                User currentUser = AuthenticationService.getCurrentUser();
+                if (currentUser != null && !currentUser.getUsername().equals(user.getUsername())) {
+                    if (Util.confirmation("Berikan review ke user ini? (y/n): ")) {
+                        leaveReview(user.getUsername());
+                    }
+                }
+                
                 return Util.confirmation(message);
             default:
                 System.out.println("\nNo Item Was Selected.");
                 return false;
+        }
+    }
+    
+    /**
+     * Method untuk input dan simpan review ke user tertentu
+     * @param targetUsername username user yang akan di-review
+     */
+    private void leaveReview(String targetUsername) {
+        User currentUser = AuthenticationService.getCurrentUser();
+        
+        // Validasi: cek apakah reviewer sudah pernah review user ini sebelumnya
+        Review existingReview = ReviewTable.findReviewByReviewerAndTarget(currentUser.getUsername(), targetUsername);
+        
+        if (existingReview != null) {
+            System.out.println("\nAnda sudah pernah review user ini sebelumnya.");
+            System.out.printf("Review lama: ★%d - %s%n", existingReview.getRating(), existingReview.getComment());
+            
+            if (Util.confirmation("Apakah ingin update review? (y/n): ")) {
+                // Update review
+                updateExistingReview(existingReview);
+            }
+            return;
+        }
+        
+        // Input rating
+        System.out.println("\n--- Form Beri Review ---");
+        int rating = 0;
+        while (rating < 1 || rating > 5) {
+            rating = Util.integerInput("Rating (1-5): ");
+            if (rating < 1 || rating > 5) {
+                System.out.println("Rating harus antara 1-5!");
+            }
+        }
+        
+        // Input komentar
+        String comment = "";
+        while (comment.trim().isEmpty()) {
+            comment = Util.stringInput("Komentar (tidak boleh kosong): ");
+            if (comment.trim().isEmpty()) {
+                System.out.println("Komentar tidak boleh kosong!");
+            }
+        }
+        
+        // Simpan review baru
+        new Review(currentUser.getUsername(), targetUsername, comment, rating);
+        System.out.println("\n✓ Review berhasil disimpan!");
+        
+        // Tampilkan ulang info user dengan review yang sudah ter-updated
+        User updatedUser = UserTable.findByUsername(targetUsername);
+        double newAvgRating = ReviewTable.getAverageRating(updatedUser.getUsername());
+        List<Review> updatedReviews = ReviewTable.getByTargetUsername(updatedUser.getUsername());
+        
+        System.out.printf("""
+                
+                Rating terbaru: %.1f/5.0 (%d review)
+
+                """, newAvgRating, updatedReviews.size());
+        
+        // Tampilkan review list yang sudah ter-update
+        displayReviewList(targetUsername);
+    }
+    
+    /**
+     * Method untuk update review yang sudah ada
+     * @param existingReview review yang akan diupdate
+     */
+    private void updateExistingReview(Review existingReview) {
+        System.out.println("\n--- Update Review ---");
+        
+        // Input rating baru
+        int newRating = 0;
+        while (newRating < 1 || newRating > 5) {
+            newRating = Util.integerInput("Rating baru (1-5): ");
+            if (newRating < 1 || newRating > 5) {
+                System.out.println("Rating harus antara 1-5!");
+            }
+        }
+        
+        // Input komentar baru
+        String newComment = "";
+        while (newComment.trim().isEmpty()) {
+            newComment = Util.stringInput("Komentar baru (tidak boleh kosong): ");
+            if (newComment.trim().isEmpty()) {
+                System.out.println("Komentar tidak boleh kosong!");
+            }
+        }
+        
+        // Update review dengan setter
+        existingReview.setRating(newRating);
+        existingReview.setComment(newComment);
+        existingReview.setCreatedAt(java.time.LocalDateTime.now());
+        ReviewTable.update(existingReview);
+        
+        System.out.println("\n✓ Review berhasil diupdate!");
+        
+        // Tampilkan rating terbaru
+        double newAvgRating = ReviewTable.getAverageRating(existingReview.getTargetUsername());
+        List<Review> updatedReviews = ReviewTable.getByTargetUsername(existingReview.getTargetUsername());
+        
+        System.out.printf("""
+                
+                Rating terbaru: %.1f/5.0 (%d review)
+
+                """, newAvgRating, updatedReviews.size());
+        
+        // Tampilkan review list yang sudah ter-update
+        displayReviewList(existingReview.getTargetUsername());
+    }
+    
+    /**
+     * Method helper untuk menampilkan review list user
+     * @param targetUsername username user yang akan ditampilkan reviewnya
+     */
+    private void displayReviewList(String targetUsername) {
+        List<Review> reviews = ReviewTable.getByTargetUsername(targetUsername);
+        
+        if (reviews.isEmpty()) {
+            System.out.println("Belum ada review untuk user ini.\n");
+        } else {
+            System.out.println("=== Review Terbaru ===");
+            
+            // Tampilkan dari belakang (terbaru dulu), maksimal 5
+            int startIdx = Math.max(0, reviews.size() - 5);
+            for (int i = reviews.size() - 1; i >= startIdx; i--) {
+                Review r = reviews.get(i);
+                System.out.printf("  ★%d | @%s: %s (%s)%n", 
+                    r.getRating(), r.getReviewer(), r.getComment(), r.getCreatedAt());
+            }
+            System.out.println();
         }
     }
 }
