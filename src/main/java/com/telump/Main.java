@@ -96,7 +96,7 @@ public class Main {
                 "1 Dollar", 
                 "Selembar 1 Dollar Amerika", 
                 18190,
-                5
+                11
             ),
             new ItemSeeds(
                 "Scar Megalodon", 
@@ -129,8 +129,8 @@ public class Main {
                 13
             ),
             new ItemSeeds(
-                "Assasin Cina", 
-                "Assasin yang mempelajari ilmu pembunuhan rahasia dari Cina, siap membantu kardiomu!", 
+                "Assasin Jawa", 
+                "Unit pembunuh rahasia elit dari daerah subur, ahli dalam taktik siluman dan siap mengejar kardiomu sampai ke ujung wetan!", 
                 200000,
                 7
             ),
@@ -138,7 +138,7 @@ public class Main {
                 "Gitar Miku", 
                 "Gitar berbentuk Miku", 
                 15000000,
-                2
+                5
             ),
             new ItemSeeds(
                 "Ulet Bulu Inggris", 
@@ -147,10 +147,10 @@ public class Main {
                 8
             ),
             new ItemSeeds(
-                "Bass Fretless", 
-                "Bass Fretless model JazzMaster", 
+                "Lukisan Gunung Kelir", 
+                "Lukisan legendaris karya Vincent van Fufufafa.", 
                 12500000,
-                2
+                5
             ),
             new ItemSeeds(
                 "Kuda Balap Putih", 
@@ -159,34 +159,34 @@ public class Main {
                 4
             ),
             new ItemSeeds(
-                "Setup Gaming",
-                "Setup gaming kursi dan meja",
-                6500000,
+                "Kursi gaming majapahit",
+                "Bekas pemakaian raja Raden Wijaya, mulus no minus",
+                50000000,
                 10
             ),
             new ItemSeeds(
                 "Indomie Rasa Kulit Manggis",
-                "Indomie dengan rasa kulit manggis",
+                "Indomie rasa kulit manggis, varian paling langka.",
                 12000,
                 12
             ),
             new ItemSeeds(
-                "Ryzen RTX 4070",
-                "Kartu grafis dengan performa tinggi untuk gaming dan produktivitas",
-                6500000,
+                "Ryzen 4070",
+                "GPU paling ngebut sepanjang masa. minus bekas mining bitcoin",
+                60000000,
                 2
             ),
             new ItemSeeds(
                 "Sertifikat Sigma Male",
-                "Sertifikat yang menunjukkan keanggotaan di organisasi Sigma Male",
-                450000,
+                "Jadi sigma secara instan! dijamin diakui seluruh dunia!",
+                500000,
                 13
             ),
             new ItemSeeds(
-                "Hairdryer Second Mulus",
-                "Hairdryer dengan kualitas tinggi dan harga terjangkau",
-                150000,
-                2
+                "Ayam hias ras jomok asli Ngawi",
+                "Dijual santai, Ayam Hias Ras Jomok super eksotis asli tangkapan hutan keramat Ngawi bagian barat. Cocok buat hiasan ruang tamu atau buat nakut-nakutin ponakan yang rewel.",
+                5000000,
+                5
             ),
             new ItemSeeds(
                 "Samsung Note 20 Ultra 5G",
@@ -201,16 +201,16 @@ public class Main {
                 3
             ),
             new ItemSeeds(
-                "Catok Rambut 2 in 1",
-                "Catok rambut dengan fitur 2 dalam 1",
-                150000,
-                2
+                "iwak buntal mbak shiroko",
+                "Kuliner exotic khas Abydos. Gurih, renyah, penuh duri kehidupan.",
+                25000,
+                12
             ),
             new ItemSeeds(
-                "Kursi Kantor Ergonomis",
-                "Kursi kantor yang ergonomis untuk kenyamanan maksimal",
-                200000,
-                10
+                "Rumput Tetangga",
+                "Selalu lebih ijo",
+                30000,
+                6
             ),
             new ItemSeeds(
                 "Paket Galon",
@@ -228,7 +228,7 @@ public class Main {
                 "Gitar Akustik Yamaha",
                 "Gitar akustik Yamaha dengan kualitas tinggi (like new)",
                 360000,
-                13
+                5
             ),
             new ItemSeeds(
                 "Parfum Velixir",
@@ -237,8 +237,8 @@ public class Main {
                 3
             ),
             new ItemSeeds(
-                "Honda Civic 2010",
-                "Mobil Honda Civic 2010 dengan kondisi baik",
+                "Mobil Esemka",
+                "Surat-surat lengkap, AC dingin bodi mulus tidak terlihat, minus pemakaian jokowi",
                 150000000,
                 4
             ),
@@ -249,26 +249,26 @@ public class Main {
                 4
             ),
             new ItemSeeds(
-                "Keyboard Mechanical VortexSeries",
-                "Keyboard mekanik dengan performa tinggi untuk gaming",
-                600000,
-                2
+                "Ngawiborg",
+                "Robot asli ngawi, cocok buat dekorasi taman dan teman main anak, bisa nembak peluru .50 kaliber",
+                80000000,
+                6
             ),
             new ItemSeeds(
-                "Microphone Condenser Maono",
-                "Microphone condenser dengan kualitas suara tinggi",
-                1000000,
+                "Microphone Pelunas Hutang",
+                "Mikrofon pink yang bisa bantu lunasin utang pinjol. Tiap 1 jam pemakaian, saldo +Rp10.000",
+                20000000,
                 2
             ),
             new ItemSeeds(
                 "Sepatu Nike Air Max",
                 "Sepatu olahraga dengan teknologi air max untuk kenyamanan maksimal",
                 2000000,
-                3
+                7
             ),
             new ItemSeeds(
                 "Asus TUF F15",
-                "Intel Core i7, RAM 16GB, SSD 512GB, RTX 3060, layar 144Hz",
+                "Intel Core i7, RAM 16GB, SSD 512GB, RTX 3060, layar 144Hz, pemakaian 2 bulan jual BU",
                 13000000,
                 2
             ),

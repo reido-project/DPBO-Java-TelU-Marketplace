@@ -20,8 +20,7 @@ import com.telump.user.User;
 
 public final class TestUtil {
 
-    private static final Map<ItemType, Integer> imageCounters =
-            new EnumMap<>(ItemType.class);
+    private static final Map<ItemType, Integer> imageCounters = new EnumMap<>(ItemType.class);
 
     static {
         imageCounters.put(ItemType.Ad, 1);
@@ -29,10 +28,10 @@ public final class TestUtil {
     }
 
     private TestUtil() {
+        
     }
 
     public static String handleImageUploadTest(String id, ItemType type) {
-
         String resourceFolder;
         String targetFolderSubPath;
 
@@ -52,32 +51,41 @@ public final class TestUtil {
         }
 
         int currentIndex = imageCounters.getOrDefault(type, 1);
+        
+        String[] supportedExtensions = {".png", ".jpg", ".jpeg"};
+        InputStream in = null;
+        String detectedExtension = null;
 
-        String fileName = currentIndex + ".png";
-        String resourcePath = resourceFolder + fileName;
-
-        try (InputStream in = TestUtil.class.getClassLoader().getResourceAsStream(resourcePath)) {
-
-            if (in == null) {
-                return null;
+        for (String ext : supportedExtensions) {
+            String testPath = resourceFolder + currentIndex + ext;
+            in = TestUtil.class.getClassLoader().getResourceAsStream(testPath);
+            if (in != null) {
+                detectedExtension = ext;
+                break;
             }
+        }
+
+        if (in == null) {
+            return null;
+        }
+
+        try (InputStream autocloseIn = in) {
 
             String projectRoot = System.getProperty("user.dir");
-            
             Path targetDir = Paths.get(projectRoot, "src", "main", "java", targetFolderSubPath);
 
             Files.createDirectories(targetDir);
 
-            Path destination = targetDir.resolve(id + ".png");
+            Path destination = targetDir.resolve(id + detectedExtension);
 
             Files.copy(
-                    in,
+                    autocloseIn,
                     destination,
                     StandardCopyOption.REPLACE_EXISTING);
 
             imageCounters.put(type, currentIndex + 1);
 
-            return targetFolderSubPath + id + ".png";
+            return targetFolderSubPath + id + detectedExtension;
 
         } catch (IOException e) {
             return null;
