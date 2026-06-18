@@ -17,6 +17,9 @@ import com.telump.database.ReviewTable;
 import com.telump.database.UserTable;
 import com.telump.page.AppInfo;
 import com.telump.page.catalog.Catalog;
+import com.telump.page.detail.AdDetail;
+import com.telump.page.detail.ItemDetail;
+import com.telump.page.detail.UserDetail;
 import com.telump.page.profile.Profile;
 import com.telump.page.profile.UpdateAd;
 import com.telump.page.profile.UpdateItem;
@@ -48,12 +51,12 @@ public class Dashboard {
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
                     selectedItem = openCatalog(SearchService.globalSearch(null));
-                    printItemInfo(selectedItem, "Input y Untuk Keluar: ");
+                    printItemInfo(selectedItem);
                     continue;
                 case 2:
                     String query = Util.stringInput("Cari: ");
                     selectedItem = openCatalog(SearchService.globalSearch(query));
-                    printItemInfo(selectedItem, "Input y Untuk Keluar: ");
+                    printItemInfo(selectedItem);
                     continue;
                 case 3:
                     Profile.showProfile();
@@ -73,13 +76,15 @@ public class Dashboard {
                     continue;
                 case 7:
                     selectedItem = openCatalog(SearchService.searchItemsByUsername(AppController.getSession().getUsername()));
-                    if(printItemInfo(selectedItem, "Edit Item? (y/n): ")){
+                    printItemInfo(selectedItem);
+                    if (selectedItem != null && Util.confirmation("Edit Item ini? (y/n): ")) {
                         UpdateItem.updateItem(selectedItem.getId());
                     }
                     continue;
                 case 8:
                     selectedItem = openCatalog(SearchService.searchAdsByUsername(AppController.getSession().getUsername()));
-                    if(printItemInfo(selectedItem, "Edit Ad? (y/n): ")){
+                    printItemInfo(selectedItem);
+                    if (selectedItem != null && Util.confirmation("Edit Ad ini? (y/n): ")) {
                         UpdateAd.updateAd(selectedItem.getId());
                     }
                     continue;
@@ -114,72 +119,30 @@ public class Dashboard {
         return window.getSelectedItem();
     }
 
-    private boolean printItemInfo(CatalogItem catalogItem, String message){
+    private void printItemInfo(CatalogItem catalogItem){
         if(catalogItem == null){
             System.out.println("\nNo Item Was Selected.");
-            return false;
+            return;
         }
 
         switch(catalogItem.getType()){
             case Item:
                 Item item = ItemTable.getItemById(catalogItem.getId());
-                System.out.printf("""
-
-                        ID: %s
-                        Judul: %s
-                        Deskripsi: %s
-                        Harga: %s
-                        Kategori: %s
-                        Penjual: @%s
-
-                        """, item.getId(), item.getTitle(), item.getDescription(), item.getFormattedPrice(), item.getCategory().getName(), item.getSeller().getUsername());
-                return Util.confirmation(message);
+                ItemDetail itemDetail = new ItemDetail(item);
+                itemDetail.show();
+                break;
             case Ad:
                 Ad ad = AdTable.getAdById(catalogItem.getId());
-                System.out.printf("""
-                        
-                        ID: %s
-                        Judul: %s
-                        Deskripsi: %s
-                        Pelajari Lebih Lanjut: %s
-                        Pengiklan: @%s
-
-                        """, ad.getId(), ad.getTitle(), ad.getDescription(), ad.getTargetUrl(), ad.getRegistrant().getUsername());
-                return Util.confirmation(message);
+                AdDetail adDetail = new AdDetail(ad);
+                adDetail.show();
+                break;
             case User:
                 User user = UserTable.findByUsername(catalogItem.getId());
-                
-                // Hitung rating rata-rata
-                double avgRating = ReviewTable.getAverageRating(user.getUsername());
-                List<Review> reviews = ReviewTable.getByTargetUsername(user.getUsername());
-                
-                System.out.printf("""
-                        
-                        Username: @%s
-                        Name: %s
-                        Bio: %s
-                        Kontak: %s
-                        Role: %s
-                        Rating: %.1f/5.0 (%d review)
-
-                        """, user.getUsername(), user.getProfilname(), user.getBio(), user.getKontak(), 
-                        String.valueOf(user.getRole()), avgRating, reviews.size());
-                
-                // Tampilkan review (maksimal 5 terbaru)
-                displayReviewList(user.getUsername());
-                
-                // Tanyakan apakah ingin memberi review (hanya jika user sedang login dan bukan diri sendiri)
-                User currentUser = AuthenticationService.getCurrentUser();
-                if (currentUser != null && !currentUser.getUsername().equals(user.getUsername())) {
-                    if (Util.confirmation("Berikan review ke user ini? (y/n): ")) {
-                        leaveReview(user.getUsername());
-                    }
-                }
-                
-                return Util.confirmation(message);
+                UserDetail userDetail = new UserDetail(user);
+                userDetail.show();
+                break;
             default:
                 System.out.println("\nNo Item Was Selected.");
-                return false;
         }
     }
     
