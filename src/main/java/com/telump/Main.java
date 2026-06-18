@@ -195,9 +195,9 @@ public class Main {
                 2
             ),
             new ItemSeeds(
-                "Parfume Mekah",
-                "Parfume dengan aroma khas Mekah",
-                100000,
+                "Body Paint Irenk",
+                "Body paint warna hitam, bisa digunakan untuk berbaur dengan jawir atau mengucapkan n-word selama pemakaian.",
+                89000,
                 3
             ),
             new ItemSeeds(
@@ -219,9 +219,9 @@ public class Main {
                 10
             ),
             new ItemSeeds(
-                "Vicks Inhaler",
-                "Vicks Inhaler untuk meredam batuk dan pilek (baru beli)",
-                15000,
+                "Adapter 500 batang rokok",
+                "Tingkatkan performa nyebatmu hingga 500 kali! Cocok digunakan sambil ngopi, mancing, atau keduanya!",
+                150000,
                 8
             ),
             new ItemSeeds(
