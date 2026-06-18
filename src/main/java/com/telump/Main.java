@@ -126,7 +126,7 @@ public class Main {
                 "Suara Rakyat", 
                 "Ingin menang pemilu? Beli sekarang!", 
                 50000,
-                12
+                13
             ),
             new ItemSeeds(
                 "Assasin Cina", 
@@ -157,7 +157,121 @@ public class Main {
                 "Kuda balap warna putih, bisa melakukan moonwalk seperti Michael Jackson", 
                 200000000,
                 4
-            )
+            ),
+            new ItemSeeds(
+                "Setup Gaming",
+                "Setup gaming kursi dan meja",
+                6500000,
+                10
+            ),
+            new ItemSeeds(
+                "Indomie Rasa Kulit Manggis",
+                "Indomie dengan rasa kulit manggis",
+                12000,
+                12
+            ),
+            new ItemSeeds(
+                "Ryzen RTX 4070",
+                "Kartu grafis dengan performa tinggi untuk gaming dan produktivitas",
+                6500000,
+                2
+            ),
+            new ItemSeeds(
+                "Sertifikat Sigma Male",
+                "Sertifikat yang menunjukkan keanggotaan di organisasi Sigma Male",
+                450000,
+                13
+            ),
+            new ItemSeeds(
+                "Hairdryer Second Mulus",
+                "Hairdryer dengan kualitas tinggi dan harga terjangkau",
+                150000,
+                2
+            ),
+            new ItemSeeds(
+                "Samsung Note 20 Ultra 5G",
+                "Smartphone dengan layar besar dan kamera tinggi",
+                15000000,
+                2
+            ),
+            new ItemSeeds(
+                "Parfume Mekah",
+                "Parfume dengan aroma khas Mekah",
+                100000,
+                3
+            ),
+            new ItemSeeds(
+                "Catok Rambut 2 in 1",
+                "Catok rambut dengan fitur 2 dalam 1",
+                150000,
+                2
+            ),
+            new ItemSeeds(
+                "Kursi Kantor Ergonomis",
+                "Kursi kantor yang ergonomis untuk kenyamanan maksimal",
+                200000,
+                10
+            ),
+            new ItemSeeds(
+                "Paket Galon",
+                "Paket 3 galon air minum",
+                70000,
+                10
+            ),
+            new ItemSeeds(
+                "Vicks Inhaler",
+                "Vicks Inhaler untuk meredam batuk dan pilek (baru beli)",
+                15000,
+                8
+            ),
+            new ItemSeeds(
+                "Gitar Akustik Yamaha",
+                "Gitar akustik Yamaha dengan kualitas tinggi (like new)",
+                360000,
+                13
+            ),
+            new ItemSeeds(
+                "Parfum Velixir",
+                "(Eau de parfume) Parfum Velixir dengan aroma yang tahan lama",
+                450000,
+                3
+            ),
+            new ItemSeeds(
+                "Honda Civic 2010",
+                "Mobil Honda Civic 2010 dengan kondisi baik",
+                150000000,
+                4
+            ),
+            new ItemSeeds(
+                "Helmet Full Face",
+                "Helmet full face untuk keamanan berkendara",
+                500000,
+                4
+            ),
+            new ItemSeeds(
+                "Keyboard Mechanical VortexSeries",
+                "Keyboard mekanik dengan performa tinggi untuk gaming",
+                600000,
+                2
+            ),
+            new ItemSeeds(
+                "Microphone Condenser Maono",
+                "Microphone condenser dengan kualitas suara tinggi",
+                1000000,
+                2
+            ),
+            new ItemSeeds(
+                "Sepatu Nike Air Max",
+                "Sepatu olahraga dengan teknologi air max untuk kenyamanan maksimal",
+                2000000,
+                3
+            ),
+            new ItemSeeds(
+                "Asus TUF F15",
+                "Intel Core i7, RAM 16GB, SSD 512GB, RTX 3060, layar 144Hz",
+                13000000,
+                2
+            ),
         };
 
         for (ItemSeeds item : items) {
@@ -192,7 +306,8 @@ public class Main {
             new CategorySeeds(9, "Mainan & Game"),
             new CategorySeeds(10, "Perlengkapan Rumah"),
             new CategorySeeds(11, "Souvenir & Oleh-oleh"),
-            new CategorySeeds(12, "Lainnya")
+            new CategorySeeds(12, "Makanan & Minuman"),
+            new CategorySeeds(13, "Lainnya")
         };
 
         for (CategorySeeds categorySeed : categories) {
