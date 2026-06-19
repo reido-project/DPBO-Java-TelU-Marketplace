@@ -46,7 +46,7 @@ public class UserDetail extends JFrame {
         }
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(900, 800);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false);
         setLocationRelativeTo(null);
 
