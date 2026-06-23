@@ -20,8 +20,6 @@ public class AppController {
         String welcome = "Welcome to Tel-U Marketplace!";
 
         Start startPage = new Start();
-        Login loginPage = new Login();
-        RegisterAccount registerAccountPage = new RegisterAccount();
         Dashboard dashboardPage = new Dashboard();
         AdminDashboard adminDashboardPage = new AdminDashboard();
 
@@ -56,7 +54,7 @@ public class AppController {
                         rf = null;
                         break;
                     }
-                    rf = loginPage.login();
+                    rf = new Login().login();
                     break;
                 case State.RegisterAccount:
                     if (!Util.confirmation("Continue to Registration? (y/n): ")) {
@@ -64,7 +62,7 @@ public class AppController {
                         rf = null;
                         break;
                     }
-                    rf = registerAccountPage.register();
+                    rf = new RegisterAccount().register();
                     break;
                 case State.Dashboard:
                     // Cek role user yang sedang login, redirect ke menu yang sesuai
