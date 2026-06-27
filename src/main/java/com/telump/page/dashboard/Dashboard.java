@@ -33,9 +33,10 @@ public class Dashboard {
         State appState = State.Dashboard;
 
         while(true){
+            errorMessage = "Dashboard";
             CatalogItem selectedItem = null;
 
-            System.out.printf("""
+            System.out.print("""
                 1. See Catalog
                 2. Search Item or User
                 3. View Profile
@@ -46,48 +47,47 @@ public class Dashboard {
                 8. See Your Active Ads
                 9. Logout
                 0. Exit
-                %s
-                """, errorMessage);
+                """);
             switch(Util.integerInput("Pilih opsi: ")) {
                 case 1:
                     selectedItem = openCatalog(SearchService.globalSearch(null));
                     printItemInfo(selectedItem);
-                    continue;
+                    break;
                 case 2:
                     String query = Util.stringInput("Cari: ");
                     selectedItem = openCatalog(SearchService.globalSearch(query));
                     printItemInfo(selectedItem);
-                    continue;
+                    break;
                 case 3:
                     Profile.showProfile();
-                    continue;
+                    break;
                 case 4:
                     UpdateProfile.showUpdateProfileMenu();
-                    continue;
+                    break;
                 case 5:
                     AppInfo registerItemInfo = new RegisterItem().registerItem();
                     errorMessage = registerItemInfo.getErrorMessage();
                     appState = registerItemInfo.getAppState();
-                    continue;
+                    break;
                 case 6:
                     AppInfo registerAdInfo = new RegisterAdPage().registerAd();
                     errorMessage = registerAdInfo.getErrorMessage();
                     appState = registerAdInfo.getAppState();
-                    continue;
+                    break;
                 case 7:
                     selectedItem = openCatalog(SearchService.searchItemsByUsername(AppController.getSession().getUsername()));
                     printItemInfo(selectedItem);
                     if (selectedItem != null && Util.confirmation("Edit Item ini? (y/n): ")) {
                         UpdateItem.updateItem(selectedItem.getId());
                     }
-                    continue;
+                    break;
                 case 8:
                     selectedItem = openCatalog(SearchService.searchAdsByUsername(AppController.getSession().getUsername()));
                     printItemInfo(selectedItem);
                     if (selectedItem != null && Util.confirmation("Edit Ad ini? (y/n): ")) {
                         UpdateAd.updateAd(selectedItem.getId());
                     }
-                    continue;
+                    break;
                 case 9:
                     // Logout user dan hapus sesi
                     AuthenticationService.logout();
