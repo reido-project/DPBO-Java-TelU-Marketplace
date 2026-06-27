@@ -33,7 +33,6 @@ import com.telump.user.User;
 
 public class UserDetail extends JFrame {
     private User user;
-    private boolean reviewSubmitted = false;
 
     public UserDetail(User user) {
         super("User Detail - Tel-U Marketplace");
@@ -260,7 +259,6 @@ public class UserDetail extends JFrame {
                 ReviewDialog dialog = new ReviewDialog(this, user.getUsername());
                 dialog.setVisible(true);
                 if (dialog.isSubmitted()) {
-                    reviewSubmitted = true;
                     // Refresh window
                     dispose();
                     new UserDetail(user).display();
@@ -290,11 +288,9 @@ public class UserDetail extends JFrame {
      */
     private static class ReviewDialog extends JDialog {
         private boolean submitted = false;
-        private String targetUsername;
 
         ReviewDialog(JFrame parent, String targetUsername) {
             super(parent, "Beri Review", true);
-            this.targetUsername = targetUsername;
 
             setSize(400, 300);
             setResizable(false);

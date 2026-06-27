@@ -272,6 +272,42 @@ public class Main {
                 13000000,
                 2
             ),
+            new ItemSeeds(
+                "Jari Sukuna", 
+                "Benda kutukan tingkat khusus. Rasa seperti dendeng kedaluwarsa, kalau dimakan risiko ditubruk bocah rambut pink.", 
+                97900,
+                11
+            ),
+            new ItemSeeds(
+                "Difteri Abed khas Depok", 
+                "Kuliner bioterorisme hasil fermentasi catering 2 bulan di balkon sekolah lantai 3. Sekali buka, sekelas dijamin terjangkit difteri!", 
+                1,
+                12
+            ),
+            new ItemSeeds(
+                "Mainan Minyak Bayi Dengan Mas Didi", 
+                "Starter pack mainan eksklusif edisi 'Freak Off'. Bonus baby oil satu galon, dijamin pesta kamu bakal licin dan tak terlupakan!", 
+                67000,
+                9
+            ),
+            new ItemSeeds(
+                "Tiket Konser JMK48", 
+                "Tiket masuk baris paling depan untuk melihat performa spektakuler oshi mu langsung dari Mojokerto. Bonus handshake yang bikin ngaceng!", 
+                200000,
+                5
+            ),
+            new ItemSeeds(
+                "Wireless Gaming Headphone Ambaudio", 
+                "Dilengkapi sertifikasi Hi-Res Audio dan fitur 'Kerasukan'. Setiap bass yang keluar dijamin bikin kamu ngaceng dan mendesah 'Omaygot' secara spontan.", 
+                300000,
+                2
+            ),
+            new ItemSeeds(
+                "Ramuan Posesi Iblis Khas Situbondo", 
+                "Ramuan racikan Dr. Yomemibas S.Jmk M.Bsing PhD untuk mengubah manusia pasif menjadi sangat agresif dengan kandungan ekstrak biji raja iblis alas baluran! Dijamin bisa menang lawan Kratos setelah konsumsi, juga dapat memelihara kesehatan biji.", 
+                15000,
+                8
+            ),
         };
 
         for (ItemSeeds item : items) {
