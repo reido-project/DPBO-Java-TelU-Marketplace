@@ -29,7 +29,6 @@ import com.telump.review.Review;
 
 public class ItemDetail extends JFrame {
     private Item item;
-    private boolean reviewSubmitted = false;
 
     public ItemDetail(Item item) {
         super("Item Detail - Tel-U Marketplace");
