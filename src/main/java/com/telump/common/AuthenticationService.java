@@ -104,7 +104,6 @@ public class AuthenticationService {
      */
     public static void logout() {
         if (currentUser != null) {
-            System.out.println(currentUser.getUsername() + " telah logout.");
             currentUser.logout();
             currentUser = null;
             lastError = null;

@@ -42,7 +42,7 @@ public class AppController {
                 session = com.telump.common.AuthenticationService.getCurrentUser();
             }
 
-            System.out.println("\n" + errorMessage);
+            Util.header(errorMessage);
 
             switch (appState) {
                 case State.Start:

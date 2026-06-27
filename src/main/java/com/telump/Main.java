@@ -86,8 +86,8 @@ public class Main {
             UserTable.save(user);
         }
 
-        System.out.println("[Init] Default ADMIN account created: admin / admin#1234");
-        System.out.println("[Init] Default USER account created: user / user123");
+        // System.out.println("[Init] Default ADMIN account created: admin / admin#1234");
+        // System.out.println("[Init] Default USER account created: user / user123");
     }
 
     private static void seedItem() {

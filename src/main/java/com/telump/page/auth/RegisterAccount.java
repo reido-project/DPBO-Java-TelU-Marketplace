@@ -65,26 +65,31 @@ public class RegisterAccount extends JFrame {
         form.setOpaque(false);
 
         JLabel username = new JLabel("Username");
+        username.setForeground(Color.WHITE);
         username.setBounds(30, 10, 300, 20);
         JTextField usernameInput = new JTextField();
         usernameInput.setBounds(30, 32, 300, 35);
 
         JLabel password = new JLabel("Password (minimal 6 karakter)");
+        password.setForeground(Color.WHITE);
         password.setBounds(30, 77, 300, 20);
         JPasswordField passwordInput = new JPasswordField();
         passwordInput.setBounds(30, 99, 300, 35);
 
         JLabel profilName = new JLabel("Nama Profil");
+        profilName.setForeground(Color.WHITE);
         profilName.setBounds(30, 144, 300, 20);
         JTextField profilNameInput = new JTextField();
         profilNameInput.setBounds(30, 166, 300, 35);
 
         JLabel kontak = new JLabel("Kontak");
+        kontak.setForeground(Color.WHITE);
         kontak.setBounds(30, 211, 300, 20);
         JTextField kontakInput = new JTextField();
         kontakInput.setBounds(30, 233, 300, 35);
 
         JLabel bio = new JLabel("Bio");
+        bio.setForeground(Color.WHITE);
         bio.setBounds(30, 278, 300, 20);
         JTextField bioInput = new JTextField();
         bioInput.setBounds(30, 300, 300, 35);

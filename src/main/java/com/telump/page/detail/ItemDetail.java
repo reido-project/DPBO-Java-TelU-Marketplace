@@ -145,13 +145,14 @@ public class ItemDetail extends JFrame {
         JLabel titleLabel = new JLabel("Judul: " + item.getTitle());
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(titleLabel);
-        panel.add(Box.createVerticalStrut(10));
 
         // Description
         JLabel descLabel = new JLabel("Deskripsi:");
         descLabel.setForeground(Color.WHITE);
         descLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        descLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(descLabel);
 
         JTextArea descArea = new JTextArea(item.getDescription());
@@ -162,20 +163,21 @@ public class ItemDetail extends JFrame {
         descArea.setLineWrap(true);
         descArea.setWrapStyleWord(true);
         descArea.setRows(3);
+        descArea.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(descArea);
-        panel.add(Box.createVerticalStrut(10));
 
         // Price
         JLabel priceLabel = new JLabel("Harga: " + item.getFormattedPrice());
         priceLabel.setForeground(new Color(0, 255, 0));
         priceLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        priceLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(priceLabel);
-        panel.add(Box.createVerticalStrut(8));
 
         // Category
         JLabel categoryLabel = new JLabel("Kategori: " + item.getCategory().getName());
         categoryLabel.setForeground(Color.CYAN);
         categoryLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        categoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(categoryLabel);
 
         return panel;

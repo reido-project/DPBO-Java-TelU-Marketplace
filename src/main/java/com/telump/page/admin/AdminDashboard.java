@@ -23,11 +23,8 @@ public class AdminDashboard {
             return new AppInfo("Akses admin ditolak!", State.Dashboard);
         }
 
-        String errorMessage = null;
-        State appState = State.Dashboard;
-
         while (true) {
-            System.out.println("\n========== ADMIN DASHBOARD ==========");
+            Util.header("ADMIN DASHBOARD");
             System.out.println("Selamat datang, " + currentUser.getUsername() + " (ADMIN)");
             System.out.println("\n1. Lihat Semua User");
             System.out.println("2. Search User");
@@ -36,7 +33,6 @@ public class AdminDashboard {
             System.out.println("5. Edit Profile Saya");
             System.out.println("9. Logout");
             System.out.println("0. Exit");
-            System.out.println("====================================");
 
             int pilihan = Util.integerInput("Pilih opsi: ");
 

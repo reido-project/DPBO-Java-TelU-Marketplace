@@ -119,24 +119,28 @@ public class UserDetail extends JFrame {
         JLabel usernameLabel = new JLabel("Username: @" + user.getUsername());
         usernameLabel.setForeground(Color.YELLOW);
         usernameLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(usernameLabel);
         panel.add(Box.createVerticalStrut(8));
 
         // Name
         JLabel nameLabel = new JLabel("Nama: " + user.getProfilname());
         nameLabel.setForeground(Color.WHITE);
+        nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(nameLabel);
         panel.add(Box.createVerticalStrut(8));
 
         // Role
         JLabel roleLabel = new JLabel("Role: " + user.getRole().toString());
         roleLabel.setForeground(Color.CYAN);
+        roleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(roleLabel);
         panel.add(Box.createVerticalStrut(8));
 
         // Bio
         JLabel bioTitleLabel = new JLabel("Bio:");
         bioTitleLabel.setForeground(Color.WHITE);
+        bioTitleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(bioTitleLabel);
 
         JTextArea bioArea = new JTextArea(user.getBio());
@@ -147,12 +151,14 @@ public class UserDetail extends JFrame {
         bioArea.setLineWrap(true);
         bioArea.setWrapStyleWord(true);
         bioArea.setRows(2);
+        bioArea.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(bioArea);
         panel.add(Box.createVerticalStrut(8));
 
         // Kontak
         JLabel kontakLabel = new JLabel("Kontak: " + user.getKontak());
         kontakLabel.setForeground(Color.LIGHT_GRAY);
+        kontakLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(kontakLabel);
 
         return panel;

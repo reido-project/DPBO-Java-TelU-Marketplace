@@ -51,12 +51,12 @@ public class Login extends JFrame {
         // Components
         JLabel title = new JLabel("Login", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 18));
-        title.setForeground(Color.white);
+        title.setForeground(Color.WHITE);
         title.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
         JPanel header = new JPanel(new BorderLayout());
         header.setPreferredSize(new Dimension(360, 50));
-        header.setBackground(Color.red);
+        header.setBackground(Color.RED);
         header.add(title, BorderLayout.CENTER);
         formBase.add(header, BorderLayout.NORTH);
 
@@ -65,12 +65,14 @@ public class Login extends JFrame {
         form.setOpaque(false);
 
         JLabel username = new JLabel("Username");
+        username.setForeground(Color.WHITE);
         username.setBounds(30, 10, 300, 20);
         
         JTextField usernameInput = new JTextField();
         usernameInput.setBounds(30, 35, 300, 40);
 
         JLabel password = new JLabel("Password");
+        password.setForeground(Color.WHITE);
         password.setBounds(30, 90, 300, 20);
         
         JPasswordField passwordInput = new JPasswordField();

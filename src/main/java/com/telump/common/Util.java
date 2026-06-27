@@ -121,4 +121,29 @@ public class Util {
     public static String generateUUID(){
         return UUID.randomUUID().toString();
     }
+
+    public static void header(String title) {
+    int MAX_WIDTH = 100;
+
+    int maxTextWidth = MAX_WIDTH - 6; 
+    if (title.length() > maxTextWidth) {
+        title = title.substring(0, maxTextWidth - 3) + "...";
+    }
+
+    int totalSpaces = maxTextWidth - title.length();
+    int paddingLeft = totalSpaces / 2;
+    int paddingRight = totalSpaces - paddingLeft;
+
+    System.out.println();
+    System.out.println("====================================================================================================");
+
+    System.out.print("|| ");
+    for (int i = 0; i < paddingLeft; i++) System.out.print(" ");
+    System.out.print(title);
+    for (int i = 0; i < paddingRight; i++) System.out.print(" ");
+    System.out.println(" ||");
+    
+    System.out.println("====================================================================================================");
+
+}
 }
