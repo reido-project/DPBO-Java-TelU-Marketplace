@@ -146,6 +146,7 @@ public class AdDetail extends JFrame {
         JLabel titleLabel = new JLabel("Judul: " + ad.getTitle());
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(titleLabel);
         panel.add(Box.createVerticalStrut(10));
 
@@ -153,6 +154,7 @@ public class AdDetail extends JFrame {
         JLabel descLabel = new JLabel("Deskripsi:");
         descLabel.setForeground(Color.WHITE);
         descLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        descLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(descLabel);
 
         JTextArea descArea = new JTextArea(ad.getDescription());
@@ -163,6 +165,7 @@ public class AdDetail extends JFrame {
         descArea.setLineWrap(true);
         descArea.setWrapStyleWord(true);
         descArea.setRows(4);
+        descArea.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(descArea);
         panel.add(Box.createVerticalStrut(10));
 
@@ -170,11 +173,13 @@ public class AdDetail extends JFrame {
         if (ad.getTargetUrl() != null && !ad.getTargetUrl().isBlank()) {
             JLabel urlLabel = new JLabel("Pelajari Lebih Lanjut:");
             urlLabel.setForeground(Color.WHITE);
+            urlLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
             panel.add(urlLabel);
 
             JLabel linkLabel = new JLabel("<html><u>" + ad.getTargetUrl() + "</u></html>");
             linkLabel.setForeground(new Color(0, 100, 255));
             linkLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            linkLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
             linkLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
